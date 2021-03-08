@@ -1,4 +1,6 @@
-package com.kyeeego.TFood.users.models;
+package com.kyeeego.TFood.domain.entity.user;
+
+import com.kyeeego.TFood.domain.entity.user.User;
 
 public class UserResponse {
     public String id;

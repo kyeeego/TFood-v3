@@ -1,6 +1,5 @@
-package com.kyeeego.TFood.users.models;
+package com.kyeeego.TFood.domain.entity.user;
 
-import com.kyeeego.TFood.users.UserUtils;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import org.springframework.data.annotation.Id;
@@ -63,6 +62,10 @@ public class User {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getBirthdate() {
         return birthdate;
     }
@@ -92,12 +95,12 @@ public class User {
 
     // Calculating physical parameters
 
-    public UserUtils.PFC dailyMacronutrientsNeed(double DEN) {
+    public PFC dailyMacronutrientsNeed(double DEN) {
         double prots = DEN * 0.12;
         double fats = DEN * 0.3;
         double carbs = DEN - (prots + fats);
 
-        return new UserUtils.PFC(prots / 4, fats / 9, carbs / 4);
+        return new PFC(prots / 4, fats / 9, carbs / 4);
     }
 
     private double perfectBodyMass() {
@@ -168,5 +171,17 @@ public class User {
                 * bmr / 24;
 
         return Math.round(sleep + housework + thermogenesis + sport + otherWork);
+    }
+}
+
+class PFC {
+    public double prots;
+    public double fats;
+    public double carbs;
+
+    public PFC(double prots, double fats, double carbs) {
+        this.prots = Math.round(prots);
+        this.fats = Math.round(fats);
+        this.carbs = Math.round(carbs);
     }
 }

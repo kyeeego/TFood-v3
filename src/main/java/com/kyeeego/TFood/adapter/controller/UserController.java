@@ -1,7 +1,9 @@
-package com.kyeeego.TFood.users;
+package com.kyeeego.TFood.adapter.controller;
 
-import com.kyeeego.TFood.users.models.User;
-import com.kyeeego.TFood.users.models.UserResponse;
+import com.kyeeego.TFood.domain.entity.user.User;
+import com.kyeeego.TFood.usecase.users.CreateUser;
+import com.kyeeego.TFood.usecase.users.FindUser;
+import com.kyeeego.TFood.domain.entity.user.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,16 +17,17 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private FindUser findUser;
+    private CreateUser createUser;
 
     @GetMapping
     public List<UserResponse> findAll() {
-        return userService.find();
+        return findUser.all();
     }
 
     @GetMapping("/{id}")
-    public User findByID(@PathVariable("id") String id) {
-        return userService.findByID(id);
+    public UserResponse findByID(@PathVariable("id") String id) {
+        return findUser.byID(id);
     }
 
 }

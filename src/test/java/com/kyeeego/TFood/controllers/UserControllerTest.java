@@ -1,9 +1,10 @@
 package com.kyeeego.TFood.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kyeeego.TFood.users.UserController;
-import com.kyeeego.TFood.users.UserService;
-import com.kyeeego.TFood.users.models.User;
+import com.kyeeego.TFood.adapter.controller.UserController;
+import com.kyeeego.TFood.usecase.users.CreateUser;
+import com.kyeeego.TFood.usecase.users.FindUser;
+import com.kyeeego.TFood.domain.entity.user.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,8 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private UserService userService;
+    private FindUser findUser;
+    private CreateUser createUser;
 
     @Test
     void findById() throws Exception {

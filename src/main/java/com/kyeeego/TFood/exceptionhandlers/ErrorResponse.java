@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.exceptions;
+package com.kyeeego.TFood.exceptionhandlers;
 
 import org.springframework.http.HttpStatus;
 
