@@ -1,10 +1,12 @@
 package com.kyeeego.TFood.domain.entity.user;
 
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import org.springframework.data.annotation.Id;
 
 @Document(collection = "users")
+@Data
 public class User {
 
     @Id
@@ -23,67 +25,15 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password, String birthdate, int chest, int weight, int height, boolean gender) {
-        this.username = username;
-        this.email = email;
-        this.password = password; // TODO: Hash
-        this.birthdate = birthdate;
-        this.chest = chest;
-        this.weight = weight;
-        this.height = height;
-        this.gender = gender;
-    }
-
-    public User(String id, String username, String email, String password, String birthdate, int chest, int weight, int height, boolean gender) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.birthdate = birthdate;
-        this.chest = chest;
-        this.weight = weight;
-        this.height = height;
-        this.gender = gender;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getBirthdate() {
-        return birthdate;
-    }
-
-    public int getChest() {
-        return chest;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public boolean isGender() {
-        return gender;
+    public User(UserCreateDto user) {
+        this.birthdate = user.getBirthdate();
+        this.username = user.getUsername();
+        this.chest = user.getChest();
+        this.weight = user.getWeight();
+        this.height = user.getHeight();
+        this.gender = user.isGender();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
     }
 
     @Override

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class FindUser {
+public class FindUser {
 
     @Autowired
     private UserRepository userRepository;

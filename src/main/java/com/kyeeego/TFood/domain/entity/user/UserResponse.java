@@ -1,7 +1,5 @@
 package com.kyeeego.TFood.domain.entity.user;
 
-import com.kyeeego.TFood.domain.entity.user.User;
-
 public class UserResponse {
     public String id;
 
@@ -22,6 +20,4 @@ public class UserResponse {
         this.height = user.getHeight();
         this.gender = user.isGender();
     }
-
-
 }

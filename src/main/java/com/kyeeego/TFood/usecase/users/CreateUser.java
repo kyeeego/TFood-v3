@@ -1,21 +1,24 @@
 package com.kyeeego.TFood.usecase.users;
 
 import com.kyeeego.TFood.domain.entity.user.User;
+import com.kyeeego.TFood.domain.entity.user.UserCreateDto;
 import com.kyeeego.TFood.domain.exception.user.UserAlreadyExistsException;
-import com.kyeeego.TFood.domain.port.IPasswordService;
-import com.kyeeego.TFood.usecase.users.validator.UserValidator;
 import com.kyeeego.TFood.domain.port.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-public final class CreateUser {
+public class CreateUser {
 
     @Autowired
     private UserRepository userRepository;
-    private IPasswordService passwordService;
-    private UserValidator userValidator;
 
-    public User create(User user) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public User create(UserCreateDto userInput) {
 //        userValidator.validateCreateUser(user);
+
+        User user = new User(userInput);
 
         if (userRepository
                 .findByEmail(user.getEmail())
@@ -24,7 +27,7 @@ public final class CreateUser {
             throw new UserAlreadyExistsException();
 
         user.setPassword(
-                passwordService.hash(user.getPassword())
+                passwordEncoder.encode(user.getPassword())
         );
 
         return userRepository.save(user);
