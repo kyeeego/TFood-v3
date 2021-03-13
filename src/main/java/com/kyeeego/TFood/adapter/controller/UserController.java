@@ -14,11 +14,14 @@ import java.util.List;
 @RequestMapping("api/v1/users")
 public class UserController {
 
-    @Autowired
-    private FindUser findUser;
+    private final FindUser findUser;
+    private final CreateUser createUser;
 
     @Autowired
-    private CreateUser createUser;
+    public UserController(FindUser findUser, CreateUser createUser) {
+        this.findUser = findUser;
+        this.createUser = createUser;
+    }
 
     @GetMapping
     public List<UserResponse> findAll() {

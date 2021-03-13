@@ -1,14 +1,24 @@
 package com.kyeeego.TFood.configuration;
 
+import com.kyeeego.TFood.domain.port.UserRepository;
 import com.kyeeego.TFood.usecase.users.CreateUser;
 import com.kyeeego.TFood.usecase.users.FindUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class ServiceSetup {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public ServiceSetup(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Bean
     public FindUser findUserSetUp() {
@@ -17,7 +27,7 @@ public class ServiceSetup {
 
     @Bean
     public CreateUser createUserSetUp() {
-        return new CreateUser();
+        return new CreateUser(userRepository, passwordEncoder);
     }
 
 }

@@ -25,11 +25,14 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
+    private final JwtRequestFilter jwtRequestFilter;
+    private final MyUserDetailsService userDetailsService;
 
     @Autowired
-    private MyUserDetailsService userDetailsService;
+    public SecurityConfig(JwtRequestFilter jwtRequestFilter, MyUserDetailsService myUserDetailsService) {
+        this.jwtRequestFilter = jwtRequestFilter;
+        this.userDetailsService = myUserDetailsService;
+    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {

@@ -9,11 +9,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class CreateUser {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public CreateUser(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public User create(UserCreateDto userInput) {
 //        userValidator.validateCreateUser(user);
