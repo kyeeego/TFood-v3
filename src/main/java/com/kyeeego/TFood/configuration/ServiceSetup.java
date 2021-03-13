@@ -1,7 +1,5 @@
 package com.kyeeego.TFood.configuration;
 
-import com.kyeeego.TFood.domain.port.IPasswordService;
-import com.kyeeego.TFood.domain.port.UserRepository;
 import com.kyeeego.TFood.usecase.users.CreateUser;
 import com.kyeeego.TFood.usecase.users.FindUser;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +20,4 @@ public class ServiceSetup {
         return new CreateUser();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoderSetUp() {
-        return new BCryptPasswordEncoder(13);
-    }
 }

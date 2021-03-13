@@ -1,5 +1,6 @@
 package com.kyeeego.TFood.domain.entity.user;
 
+import com.kyeeego.TFood.domain.entity.user.dto.UserCreateDto;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 

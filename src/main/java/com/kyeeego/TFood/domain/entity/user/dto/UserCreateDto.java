@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.domain.entity.user;
+package com.kyeeego.TFood.domain.entity.user.dto;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class UserCreateDto {
+public class  UserCreateDto {
 
     @Email(message = "should be email")
     @NotNull(message = "Should be present")

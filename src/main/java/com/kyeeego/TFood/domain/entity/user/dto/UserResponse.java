@@ -1,15 +1,19 @@
-package com.kyeeego.TFood.domain.entity.user;
+package com.kyeeego.TFood.domain.entity.user.dto;
 
+import com.kyeeego.TFood.domain.entity.user.User;
+import lombok.Data;
+
+@Data
 public class UserResponse {
-    public String id;
+    private String id;
 
-    public String username;
-    public String birthdate;
+    private String username;
+    private String birthdate;
 
-    public int chest;
-    public int weight;
-    public int height;
-    public boolean gender;
+    private int chest;
+    private int weight;
+    private int height;
+    private boolean gender;
 
     public UserResponse(User user) {
         this.id = user.getId();

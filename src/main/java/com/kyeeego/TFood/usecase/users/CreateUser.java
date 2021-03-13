@@ -1,7 +1,7 @@
 package com.kyeeego.TFood.usecase.users;
 
 import com.kyeeego.TFood.domain.entity.user.User;
-import com.kyeeego.TFood.domain.entity.user.UserCreateDto;
+import com.kyeeego.TFood.domain.entity.user.dto.UserCreateDto;
 import com.kyeeego.TFood.domain.exception.user.UserAlreadyExistsException;
 import com.kyeeego.TFood.domain.port.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

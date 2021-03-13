@@ -1,10 +1,9 @@
 package com.kyeeego.TFood.adapter.controller;
 
-import com.kyeeego.TFood.domain.entity.user.User;
-import com.kyeeego.TFood.domain.entity.user.UserCreateDto;
+import com.kyeeego.TFood.domain.entity.user.dto.UserCreateDto;
 import com.kyeeego.TFood.usecase.users.CreateUser;
 import com.kyeeego.TFood.usecase.users.FindUser;
-import com.kyeeego.TFood.domain.entity.user.UserResponse;
+import com.kyeeego.TFood.domain.entity.user.dto.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +35,11 @@ public class UserController {
         return new UserResponse(
                 createUser.create(userCreateDto)
         );
+    }
+
+    @PostMapping("/ping")
+    public String ping() {
+        return "Pong!";
     }
 
 }
