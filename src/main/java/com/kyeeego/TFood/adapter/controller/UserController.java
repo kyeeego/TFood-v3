@@ -35,9 +35,8 @@ public class UserController {
 
     @PostMapping
     public UserResponse create(@Validated @RequestBody UserCreateDto userCreateDto) {
-        return new UserResponse(
-                createUser.create(userCreateDto)
-        );
+        return createUser.create(userCreateDto);
+
     }
 
     @PostMapping("/ping")

@@ -1,13 +1,19 @@
 package com.kyeeego.TFood.usecase.auth.jwt;
 
+import com.kyeeego.TFood.domain.entity.user.User;
+import com.kyeeego.TFood.domain.exception.UnauthorizedException;
+import com.kyeeego.TFood.domain.exception.user.UserNotFoundException;
+import com.kyeeego.TFood.domain.port.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -22,6 +28,15 @@ public class AccessTokenService {
 
     @Value("${accesstoken.secret}")
     private String key;
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder bcryptEncoder;
+
+    @Autowired
+    public AccessTokenService(UserRepository userRepository, PasswordEncoder bcryptEncoder) {
+        this.userRepository = userRepository;
+        this.bcryptEncoder = bcryptEncoder;
+    }
 
     public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -58,7 +73,13 @@ public class AccessTokenService {
 
     public boolean validateToken(String token, UserDetails userDetails) {
         String email = extractEmail(token);
-        return email.equals(userDetails.getUsername());
+
+        User user = userRepository
+                .findByEmail(email)
+                .orElseThrow(UnauthorizedException::new);
+
+        return email.equals(userDetails.getUsername())
+                && bcryptEncoder.matches(token, user.getAccessToken());
     }
 
 }

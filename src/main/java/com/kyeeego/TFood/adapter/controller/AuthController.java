@@ -1,6 +1,8 @@
 package com.kyeeego.TFood.adapter.controller;
 
+import com.kyeeego.TFood.domain.entity.user.dto.auth.AccessToken;
 import com.kyeeego.TFood.domain.entity.user.dto.auth.LogInDto;
+import com.kyeeego.TFood.domain.entity.user.dto.auth.RefreshToken;
 import com.kyeeego.TFood.domain.entity.user.dto.auth.TokenPair;
 import com.kyeeego.TFood.usecase.auth.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,12 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping
-    public TokenPair logIn(@RequestBody @Valid LogInDto logInDto) {
+    public AccessToken logIn(@RequestBody @Valid LogInDto logInDto) {
         return authService.auth(logInDto);
     }
 
-    // TODO: Refresh tokens
+    @PostMapping("/refresh")
+    public AccessToken refreshAccessToken(@RequestBody @Valid RefreshToken refreshToken) {
+        return authService.refresh(refreshToken);
+    }
 }
