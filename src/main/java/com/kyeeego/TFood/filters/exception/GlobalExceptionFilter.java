@@ -1,5 +1,6 @@
 package com.kyeeego.TFood.filters.exception;
 
+import com.kyeeego.TFood.domain.exception.BadRequestException;
 import com.kyeeego.TFood.domain.exception.ForbiddenException;
 import com.kyeeego.TFood.domain.exception.UnauthorizedException;
 import com.kyeeego.TFood.domain.exception.user.UserAlreadyExistsException;
@@ -28,6 +29,13 @@ public class GlobalExceptionFilter {
         return defaultExceptionHandler(ex);
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorResponse handleBadRequest(BadRequestException ex) {
+        return defaultExceptionHandler(ex);
+    }
+
     @ExceptionHandler(UserAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
@@ -52,7 +60,9 @@ public class GlobalExceptionFilter {
     @ExceptionHandler(UnauthorizedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
-    public ErrorResponse handleUnauthorized(UnauthorizedException ex) { return defaultExceptionHandler(ex); }
+    public ErrorResponse handleUnauthorized(UnauthorizedException ex) {
+        return defaultExceptionHandler(ex);
+    }
 
     // TODO: handle all JWT exceptions at once somehow
 
