@@ -1,10 +1,9 @@
-package com.kyeeego.TFood.exception_handlers;
+package com.kyeeego.TFood.filters.exception;
 
 import com.kyeeego.TFood.domain.exception.ForbiddenException;
 import com.kyeeego.TFood.domain.exception.UnauthorizedException;
 import com.kyeeego.TFood.domain.exception.user.UserAlreadyExistsException;
 import com.kyeeego.TFood.domain.exception.user.UserNotFoundException;
-import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,7 +12,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionFilter {
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorResponse handleRUntimeException(RuntimeException ex) {
+        return defaultExceptionHandler(ex);
+    }
 
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

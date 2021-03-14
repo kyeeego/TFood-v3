@@ -1,16 +1,13 @@
 package com.kyeeego.TFood.filters;
 
-import com.kyeeego.TFood.domain.exception.ForbiddenException;
-import com.kyeeego.TFood.domain.exception.UnauthorizedException;
 import com.kyeeego.TFood.usecase.auth.MyUserDetailsService;
-import com.kyeeego.TFood.usecase.auth.jwt.JwtService;
+import com.kyeeego.TFood.usecase.auth.jwt.AccessTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -23,10 +20,10 @@ import java.io.IOException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final MyUserDetailsService myUserDetailsService;
-    private final JwtService jwtService;
+    private final AccessTokenService jwtService;
 
     @Autowired
-    public JwtRequestFilter(MyUserDetailsService myUserDetailsService, JwtService jwtService) {
+    public JwtRequestFilter(MyUserDetailsService myUserDetailsService, AccessTokenService jwtService) {
         this.myUserDetailsService = myUserDetailsService;
         this.jwtService = jwtService;
     }
@@ -61,10 +58,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     .buildDetails(httpServletRequest));
 
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            filterChain.doFilter(httpServletRequest, httpServletResponse);
-        } else {
-            filterChain.doFilter(httpServletRequest, httpServletResponse);
         }
+        filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
 }

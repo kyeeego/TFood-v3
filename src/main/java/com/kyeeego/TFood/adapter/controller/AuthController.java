@@ -22,4 +22,6 @@ public class AuthController {
     public TokenPair logIn(@RequestBody @Valid LogInDto logInDto) {
         return authService.auth(logInDto);
     }
+
+    // TODO: Refresh tokens
 }

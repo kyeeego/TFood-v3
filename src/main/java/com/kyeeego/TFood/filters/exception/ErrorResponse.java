@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.exception_handlers;
+package com.kyeeego.TFood.filters.exception;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;

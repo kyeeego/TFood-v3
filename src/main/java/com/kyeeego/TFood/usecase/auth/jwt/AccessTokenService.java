@@ -17,21 +17,14 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JwtService {
+// Using JWTs without expiration
+public class AccessTokenService {
 
-    @Value("${jwt.token.secret}")
+    @Value("${accesstoken.secret}")
     private String key;
 
     public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
-    }
-
-    public Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
-
-    private boolean isExpired(String token) {
-        return extractExpiration(token).before(new Date());
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
@@ -56,18 +49,16 @@ public class JwtService {
     }
 
     private String createToken(Map<String, Object> claims, String sub) {
-        System.out.println("Subject: " + sub);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(sub)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 120 * 60))
                 .signWith(generateKey(), SignatureAlgorithm.HS256).compact();
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {
-        String id = extractEmail(token);
-        return (id.equals(userDetails.getUsername())) && !isExpired(token);
+        String email = extractEmail(token);
+        return email.equals(userDetails.getUsername());
     }
 
 }

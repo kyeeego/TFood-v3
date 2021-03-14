@@ -1,19 +1,14 @@
 package com.kyeeego.TFood.usecase.auth;
 
-import com.kyeeego.TFood.domain.entity.user.User;
 import com.kyeeego.TFood.domain.entity.user.dto.auth.LogInDto;
 import com.kyeeego.TFood.domain.entity.user.dto.auth.TokenPair;
-import com.kyeeego.TFood.domain.exception.user.UserNotFoundException;
-import com.kyeeego.TFood.domain.port.UserRepository;
-import com.kyeeego.TFood.usecase.auth.jwt.JwtService;
+import com.kyeeego.TFood.usecase.auth.jwt.AccessTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -23,13 +18,13 @@ public class AuthService {
 
     private final MyUserDetailsService myUserDetailsService;
     private final AuthenticationManager authenticationManager;
-    private final JwtService jwtService;
+    private final AccessTokenService jwtService;
 
     @Autowired
     public AuthService(
             MyUserDetailsService myUserDetailsService,
             AuthenticationManager authenticationManager,
-            JwtService jwtService
+            AccessTokenService jwtService
     ) {
         this.myUserDetailsService = myUserDetailsService;
         this.authenticationManager = authenticationManager;
