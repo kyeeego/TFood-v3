@@ -23,9 +23,6 @@ public class User {
     private int height;
     private boolean gender;
 
-    private String accessToken;
-    private String refreshToken;
-
     public User() {
     }
 

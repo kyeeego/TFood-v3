@@ -23,23 +23,21 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-// Using JWTs without expiration
 public class AccessTokenService {
 
     @Value("${accesstoken.secret}")
     private String key;
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder bcryptEncoder;
-
-    @Autowired
-    public AccessTokenService(UserRepository userRepository, PasswordEncoder bcryptEncoder) {
-        this.userRepository = userRepository;
-        this.bcryptEncoder = bcryptEncoder;
-    }
-
     public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+    public Date extractExpirationDate(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+
+    public boolean isExpired(String token) {
+        return extractExpirationDate(token).before(new Date());
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
@@ -53,7 +51,7 @@ public class AccessTokenService {
                 .getBody();
     }
 
-    private Key generateKey() {
+    private Key getKey() {
         byte[] keyBytes = Decoders.BASE64.decode(this.key);
         return Keys.hmacShaKeyFor(keyBytes);
     }
@@ -67,19 +65,14 @@ public class AccessTokenService {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(sub)
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 15))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .signWith(generateKey(), SignatureAlgorithm.HS256).compact();
+                .signWith(getKey(), SignatureAlgorithm.HS256).compact();
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {
-        String email = extractEmail(token);
-
-        User user = userRepository
-                .findByEmail(email)
-                .orElseThrow(UnauthorizedException::new);
-
-        return email.equals(userDetails.getUsername())
-                && bcryptEncoder.matches(token, user.getAccessToken());
+        return extractEmail(token).equals(userDetails.getUsername())
+                && !isExpired(token);
     }
 
 }

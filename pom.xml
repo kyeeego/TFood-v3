@@ -11,11 +11,12 @@
 	</parent>
 	<groupId>com.kyeeego</groupId>
 	<artifactId>TFood</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>TFood</name>
 	<description>Серверная часть приложения по оценке и анализу питания подростков TFood. Разработана в рамках УПС2021 в Сириусе</description>
 	<properties>
 		<java.version>11</java.version>
+		<maven.version>3.6.3</maven.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -78,6 +79,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
 		</plugins>
 	</build>
 

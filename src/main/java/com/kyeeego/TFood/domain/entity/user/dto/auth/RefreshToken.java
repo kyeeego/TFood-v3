@@ -11,6 +11,6 @@ public class RefreshToken {
     private String token;
 
     @NotNull
-    private String id;
+    private String userId;
 
 }

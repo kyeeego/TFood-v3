@@ -28,21 +28,18 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final AccessTokenService jwtService;
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public AuthService(
             MyUserDetailsService myUserDetailsService,
             AuthenticationManager authenticationManager,
             AccessTokenService jwtService,
-            UserRepository userRepository,
-            PasswordEncoder passwordEncoder
+            UserRepository userRepository
     ) {
         this.myUserDetailsService = myUserDetailsService;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public AccessToken auth(LogInDto logInDto) {
@@ -57,10 +54,10 @@ public class AuthService {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Bad credentials");
         }
-
-
         final UserDetails userDetails = myUserDetailsService
                 .loadUserByUsername(logInDto.getEmail());
+
+        // TODO: generate session
 
         final String accessToken = jwtService.generateToken(userDetails);
 
@@ -68,31 +65,14 @@ public class AuthService {
                 .findByEmail(logInDto.getEmail())
                 .orElseThrow(UserNotFoundException::new);
 
-        user.setAccessToken(passwordEncoder.encode(accessToken));
-
         userRepository.save(user);
 
         return new AccessToken(accessToken);
     }
 
-    public AccessToken refresh(RefreshToken refreshToken) {
-        final User user = userRepository
-                .findById(refreshToken.getId())
-                .orElseThrow(UnauthorizedException::new);
-
-        if (!passwordEncoder.matches(refreshToken.getToken(), user.getRefreshToken()))
-            throw new ForbiddenException("Invalid refresh token");
-
-        final String accessToken = jwtService.generateToken(
-            myUserDetailsService
-                .loadUserByUsername(user.getEmail())
-        );
-
-        user.setAccessToken(
-                passwordEncoder.encode(accessToken)
-        );
-        userRepository.save(user);
-
-        return new AccessToken(accessToken);
-    }
+//    public AccessToken refresh(RefreshToken refreshToken) {
+//        // TODO: Check session
+//
+//        return new AccessToken(accessToken);
+//    }
 }

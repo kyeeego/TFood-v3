@@ -1,16 +1,14 @@
 package com.kyeeego.TFood.usecase.users;
 
 import com.kyeeego.TFood.domain.entity.user.User;
-import com.kyeeego.TFood.domain.entity.user.dto.CreatedUserResponse;
 import com.kyeeego.TFood.domain.entity.user.dto.UserCreateDto;
+import com.kyeeego.TFood.domain.entity.user.dto.UserResponse;
 import com.kyeeego.TFood.domain.exception.BadRequestException;
 import com.kyeeego.TFood.domain.exception.user.UserAlreadyExistsException;
 import com.kyeeego.TFood.domain.port.UserRepository;
 import com.kyeeego.TFood.usecase.users.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.UUID;
 
 public class CreateUser {
 
@@ -24,13 +22,12 @@ public class CreateUser {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public CreatedUserResponse create(UserCreateDto userInput) {
+    public UserResponse create(UserCreateDto userInput) {
         User user = new User(userInput);
 
         if (userRepository
                 .findByEmail(user.getEmail())
-                .isPresent()
-        )
+                .isPresent())
             throw new UserAlreadyExistsException();
 
         if (!UserValidator.validateCreate(user))
@@ -40,14 +37,8 @@ public class CreateUser {
                 passwordEncoder.encode(user.getPassword())
         );
 
-        final String refreshToken = UUID.randomUUID().toString();
-        user.setRefreshToken(
-                passwordEncoder.encode(refreshToken)
-        );
         userRepository.save(user);
 
-        user.setRefreshToken(refreshToken);
-
-        return new CreatedUserResponse(user);
+        return new UserResponse(user);
     }
 }

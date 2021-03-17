@@ -1,0 +1,5 @@
+target
+!target/TFood-0.0.1.jar
+.gradle
+.mvn
+.idea
