@@ -1,10 +1,10 @@
 package com.kyeeego.TFood.filters.exception;
 
-import com.kyeeego.TFood.domain.exception.BadRequestException;
-import com.kyeeego.TFood.domain.exception.ForbiddenException;
-import com.kyeeego.TFood.domain.exception.UnauthorizedException;
-import com.kyeeego.TFood.domain.exception.user.UserAlreadyExistsException;
-import com.kyeeego.TFood.domain.exception.user.UserNotFoundException;
+import com.kyeeego.TFood.exception.BadRequestException;
+import com.kyeeego.TFood.exception.ForbiddenException;
+import com.kyeeego.TFood.exception.UnauthorizedException;
+import com.kyeeego.TFood.modules.user.exception.UserAlreadyExistsException;
+import com.kyeeego.TFood.modules.user.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
