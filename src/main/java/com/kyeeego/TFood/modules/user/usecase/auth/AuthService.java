@@ -4,6 +4,7 @@ import com.kyeeego.TFood.modules.user.entity.User;
 import com.kyeeego.TFood.modules.user.entity.dto.auth.AccessToken;
 import com.kyeeego.TFood.modules.user.entity.dto.auth.LogInDto;
 import com.kyeeego.TFood.modules.user.exception.UserNotFoundException;
+import com.kyeeego.TFood.modules.user.port.IAuthService;
 import com.kyeeego.TFood.modules.user.port.UserRepository;
 import com.kyeeego.TFood.modules.user.usecase.auth.jwt.AccessTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthService {
+public class AuthService implements IAuthService {
 
     private final MyUserDetailsService myUserDetailsService;
     private final AuthenticationManager authenticationManager;

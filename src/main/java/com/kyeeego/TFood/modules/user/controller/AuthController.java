@@ -2,6 +2,7 @@ package com.kyeeego.TFood.modules.user.controller;
 
 import com.kyeeego.TFood.modules.user.entity.dto.auth.AccessToken;
 import com.kyeeego.TFood.modules.user.entity.dto.auth.LogInDto;
+import com.kyeeego.TFood.modules.user.port.IAuthService;
 import com.kyeeego.TFood.modules.user.usecase.auth.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ import javax.validation.Valid;
 public class AuthController {
 
     @Autowired
-    private AuthService authService;
+    private IAuthService authService;
 
     @PostMapping
     public AccessToken logIn(@RequestBody @Valid LogInDto logInDto) {

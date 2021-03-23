@@ -5,12 +5,13 @@ import com.kyeeego.TFood.modules.user.entity.dto.UserCreateDto;
 import com.kyeeego.TFood.modules.user.entity.dto.UserResponse;
 import com.kyeeego.TFood.exception.BadRequestException;
 import com.kyeeego.TFood.modules.user.exception.UserAlreadyExistsException;
+import com.kyeeego.TFood.modules.user.port.ICreateUser;
 import com.kyeeego.TFood.modules.user.port.UserRepository;
 import com.kyeeego.TFood.modules.user.usecase.users.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class CreateUser {
+public class CreateUser implements ICreateUser {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

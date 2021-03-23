@@ -1,5 +1,6 @@
 package com.kyeeego.TFood.modules.user.usecase.auth.jwt;
 
+import com.kyeeego.TFood.modules.user.port.IAccessTokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,7 +17,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class AccessTokenService {
+public class AccessTokenService implements IAccessTokenService {
 
     @Value("${accesstoken.secret}")
     private String key;
@@ -25,7 +26,7 @@ public class AccessTokenService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public Date extractExpirationDate(String token) {
+    private Date extractExpirationDate(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
@@ -33,7 +34,7 @@ public class AccessTokenService {
         return extractExpirationDate(token).before(new Date());
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
+    private <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
         final Claims claims = extractAllClaims(token);
         return claimResolver.apply(claims);
     }

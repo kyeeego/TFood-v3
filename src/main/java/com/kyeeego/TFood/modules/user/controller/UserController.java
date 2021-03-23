@@ -1,6 +1,8 @@
 package com.kyeeego.TFood.modules.user.controller;
 
 import com.kyeeego.TFood.modules.user.entity.dto.UserCreateDto;
+import com.kyeeego.TFood.modules.user.port.ICreateUser;
+import com.kyeeego.TFood.modules.user.port.IFindUser;
 import com.kyeeego.TFood.modules.user.usecase.users.CreateUser;
 import com.kyeeego.TFood.modules.user.usecase.users.FindUser;
 import com.kyeeego.TFood.modules.user.entity.dto.UserResponse;
@@ -14,8 +16,8 @@ import java.util.List;
 @RequestMapping("api/v1/users")
 public class UserController {
 
-    private final FindUser findUser;
-    private final CreateUser createUser;
+    private final IFindUser findUser;
+    private final ICreateUser createUser;
 
     @Autowired
     public UserController(FindUser findUser, CreateUser createUser) {
