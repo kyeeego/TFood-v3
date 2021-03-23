@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.modules.user.usecase.users.validator;
+package com.kyeeego.TFood.modules.user.usecase.validator;
 
 import com.kyeeego.TFood.modules.user.entity.User;
 

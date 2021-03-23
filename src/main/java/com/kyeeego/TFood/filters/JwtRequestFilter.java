@@ -1,7 +1,7 @@
 package com.kyeeego.TFood.filters;
 
-import com.kyeeego.TFood.modules.user.usecase.auth.MyUserDetailsService;
-import com.kyeeego.TFood.modules.user.usecase.auth.jwt.AccessTokenService;
+import com.kyeeego.TFood.modules.auth.usecase.MyUserDetailsService;
+import com.kyeeego.TFood.modules.auth.usecase.jwt.AccessTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

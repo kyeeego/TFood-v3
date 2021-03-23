@@ -1,7 +1,7 @@
 package com.kyeeego.TFood.configuration.security;
 
 import com.kyeeego.TFood.filters.JwtRequestFilter;
-import com.kyeeego.TFood.modules.user.usecase.auth.MyUserDetailsService;
+import com.kyeeego.TFood.modules.auth.usecase.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;

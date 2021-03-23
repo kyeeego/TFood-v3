@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.modules.user.usecase.users;
+package com.kyeeego.TFood.modules.user.usecase;
 
 import com.kyeeego.TFood.modules.user.exception.UserNotFoundException;
 import com.kyeeego.TFood.modules.user.port.IFindUser;

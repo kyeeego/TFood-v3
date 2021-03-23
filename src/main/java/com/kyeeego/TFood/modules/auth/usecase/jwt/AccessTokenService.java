@@ -1,6 +1,6 @@
-package com.kyeeego.TFood.modules.user.usecase.auth.jwt;
+package com.kyeeego.TFood.modules.auth.usecase.jwt;
 
-import com.kyeeego.TFood.modules.user.port.IAccessTokenService;
+import com.kyeeego.TFood.modules.auth.port.IAccessTokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

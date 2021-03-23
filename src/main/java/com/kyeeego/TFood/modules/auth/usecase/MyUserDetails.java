@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.modules.user.usecase.auth;
+package com.kyeeego.TFood.modules.auth.usecase;
 
 import com.kyeeego.TFood.modules.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.modules.user.usecase.users;
+package com.kyeeego.TFood.modules.user.usecase;
 
 import com.kyeeego.TFood.modules.user.entity.User;
 import com.kyeeego.TFood.modules.user.entity.dto.UserCreateDto;
@@ -7,7 +7,7 @@ import com.kyeeego.TFood.exception.BadRequestException;
 import com.kyeeego.TFood.modules.user.exception.UserAlreadyExistsException;
 import com.kyeeego.TFood.modules.user.port.ICreateUser;
 import com.kyeeego.TFood.modules.user.port.UserRepository;
-import com.kyeeego.TFood.modules.user.usecase.users.validator.UserValidator;
+import com.kyeeego.TFood.modules.user.usecase.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

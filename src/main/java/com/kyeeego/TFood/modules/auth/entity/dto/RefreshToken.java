@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.modules.user.entity.dto.auth;
+package com.kyeeego.TFood.modules.auth.entity.dto;
 
 import lombok.Data;
 

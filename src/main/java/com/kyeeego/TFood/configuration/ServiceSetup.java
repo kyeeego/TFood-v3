@@ -1,8 +1,8 @@
 package com.kyeeego.TFood.configuration;
 
 import com.kyeeego.TFood.modules.user.port.UserRepository;
-import com.kyeeego.TFood.modules.user.usecase.users.CreateUser;
-import com.kyeeego.TFood.modules.user.usecase.users.FindUser;
+import com.kyeeego.TFood.modules.user.usecase.CreateUser;
+import com.kyeeego.TFood.modules.user.usecase.FindUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,9 +1,8 @@
-package com.kyeeego.TFood.modules.user.controller;
+package com.kyeeego.TFood.modules.auth.controller;
 
-import com.kyeeego.TFood.modules.user.entity.dto.auth.AccessToken;
-import com.kyeeego.TFood.modules.user.entity.dto.auth.LogInDto;
-import com.kyeeego.TFood.modules.user.port.IAuthService;
-import com.kyeeego.TFood.modules.user.usecase.auth.AuthService;
+import com.kyeeego.TFood.modules.auth.entity.dto.AccessToken;
+import com.kyeeego.TFood.modules.auth.entity.dto.LogInDto;
+import com.kyeeego.TFood.modules.auth.port.IAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

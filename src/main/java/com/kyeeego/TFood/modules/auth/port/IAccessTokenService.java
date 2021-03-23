@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.modules.user.port;
+package com.kyeeego.TFood.modules.auth.port;
 
 import org.springframework.security.core.userdetails.UserDetails;
 

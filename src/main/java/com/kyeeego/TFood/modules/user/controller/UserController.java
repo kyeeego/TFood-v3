@@ -3,8 +3,6 @@ package com.kyeeego.TFood.modules.user.controller;
 import com.kyeeego.TFood.modules.user.entity.dto.UserCreateDto;
 import com.kyeeego.TFood.modules.user.port.ICreateUser;
 import com.kyeeego.TFood.modules.user.port.IFindUser;
-import com.kyeeego.TFood.modules.user.usecase.users.CreateUser;
-import com.kyeeego.TFood.modules.user.usecase.users.FindUser;
 import com.kyeeego.TFood.modules.user.entity.dto.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -20,7 +18,7 @@ public class UserController {
     private final ICreateUser createUser;
 
     @Autowired
-    public UserController(FindUser findUser, CreateUser createUser) {
+    public UserController(IFindUser findUser, ICreateUser createUser) {
         this.findUser = findUser;
         this.createUser = createUser;
     }
