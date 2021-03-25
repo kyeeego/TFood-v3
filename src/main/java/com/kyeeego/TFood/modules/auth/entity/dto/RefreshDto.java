@@ -5,12 +5,12 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class RefreshToken {
+public class RefreshDto {
 
     @NotNull
     private String token;
 
     @NotNull
-    private String userId;
+    private String fingerprint;
 
 }

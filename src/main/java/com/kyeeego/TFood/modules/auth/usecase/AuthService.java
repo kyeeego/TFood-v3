@@ -1,12 +1,10 @@
 package com.kyeeego.TFood.modules.auth.usecase;
 
-import com.kyeeego.TFood.modules.user.entity.User;
-import com.kyeeego.TFood.modules.auth.entity.dto.AccessToken;
+import com.kyeeego.TFood.modules.auth.entity.dto.RefreshDto;
+import com.kyeeego.TFood.modules.auth.entity.dto.TokenPair;
+import com.kyeeego.TFood.modules.session.port.ISessionService;
 import com.kyeeego.TFood.modules.auth.entity.dto.LogInDto;
-import com.kyeeego.TFood.modules.user.exception.UserNotFoundException;
 import com.kyeeego.TFood.modules.auth.port.IAuthService;
-import com.kyeeego.TFood.modules.user.port.UserRepository;
-import com.kyeeego.TFood.modules.auth.usecase.jwt.AccessTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,23 +18,20 @@ public class AuthService implements IAuthService {
 
     private final MyUserDetailsService myUserDetailsService;
     private final AuthenticationManager authenticationManager;
-    private final AccessTokenService jwtService;
-    private final UserRepository userRepository;
+    private final ISessionService sessionService;
 
     @Autowired
     public AuthService(
             MyUserDetailsService myUserDetailsService,
             AuthenticationManager authenticationManager,
-            AccessTokenService jwtService,
-            UserRepository userRepository
+            ISessionService sessionService
     ) {
         this.myUserDetailsService = myUserDetailsService;
         this.authenticationManager = authenticationManager;
-        this.jwtService = jwtService;
-        this.userRepository = userRepository;
+        this.sessionService = sessionService;
     }
 
-    public AccessToken auth(LogInDto logInDto) {
+    public TokenPair auth(LogInDto logInDto) {
 
         try {
             authenticationManager.authenticate(
@@ -51,22 +46,15 @@ public class AuthService implements IAuthService {
         final UserDetails userDetails = myUserDetailsService
                 .loadUserByUsername(logInDto.getEmail());
 
-        // TODO: generate session
-
-        final String accessToken = jwtService.generateToken(userDetails);
-
-        User user = userRepository
-                .findByEmail(logInDto.getEmail())
-                .orElseThrow(UserNotFoundException::new);
-
-        userRepository.save(user);
-
-        return new AccessToken(accessToken);
+        return sessionService.create(userDetails, logInDto.getFingerprint());
     }
 
-//    public AccessToken refresh(RefreshToken refreshToken) {
-//        // TODO: Check session
-//
-//        return new AccessToken(accessToken);
-//    }
+    @Override
+    public TokenPair refreshTokens(RefreshDto refreshDto) {
+        return sessionService.renew(
+                refreshDto.getFingerprint(),
+                refreshDto.getToken()
+        );
+    }
+
 }
