@@ -1,7 +1,10 @@
 package com.kyeeego.TFood.filters;
 
+import com.kyeeego.TFood.exception.ForbiddenException;
 import com.kyeeego.TFood.modules.auth.usecase.MyUserDetailsService;
 import com.kyeeego.TFood.modules.auth.usecase.jwt.AccessTokenService;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,24 +45,27 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 
         final String accessToken = authHeader.split(" ")[1];
+        try {
+            final String email = jwtService.extractEmail(accessToken);
+            if (email == null || SecurityContextHolder.getContext().getAuthentication() != null) {
+                filterChain.doFilter(httpServletRequest, httpServletResponse);
+                return;
+            }
 
-        final String email = jwtService.extractEmail(accessToken);
-        if (email == null || SecurityContextHolder.getContext().getAuthentication() != null) {
+            final UserDetails userDetails = myUserDetailsService.loadUserByUsername(email);
+            if (jwtService.validateToken(accessToken, userDetails)) {
+                var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities()
+                );
+                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource()
+                        .buildDetails(httpServletRequest));
+
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
             filterChain.doFilter(httpServletRequest, httpServletResponse);
-            return;
+        } catch (JwtException e) {
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
         }
-
-        final UserDetails userDetails = myUserDetailsService.loadUserByUsername(email);
-        if (jwtService.validateToken(accessToken, userDetails)) {
-            var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetails, null, userDetails.getAuthorities()
-            );
-            usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource()
-                    .buildDetails(httpServletRequest));
-
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-        }
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
 }
