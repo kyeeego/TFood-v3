@@ -5,6 +5,7 @@ import com.kyeeego.TFood.modules.auth.usecase.MyUserDetailsService;
 import com.kyeeego.TFood.modules.auth.usecase.jwt.AccessTokenService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,16 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Service
+@RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final MyUserDetailsService myUserDetailsService;
     private final AccessTokenService jwtService;
-
-    @Autowired
-    public JwtRequestFilter(MyUserDetailsService myUserDetailsService, AccessTokenService jwtService) {
-        this.myUserDetailsService = myUserDetailsService;
-        this.jwtService = jwtService;
-    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,

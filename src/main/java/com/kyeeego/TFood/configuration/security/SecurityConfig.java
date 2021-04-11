@@ -2,6 +2,7 @@ package com.kyeeego.TFood.configuration.security;
 
 import com.kyeeego.TFood.filters.JwtRequestFilter;
 import com.kyeeego.TFood.modules.auth.usecase.MyUserDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -21,16 +22,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtRequestFilter jwtRequestFilter;
     private final MyUserDetailsService userDetailsService;
-
-    @Autowired
-    public SecurityConfig(JwtRequestFilter jwtRequestFilter, MyUserDetailsService myUserDetailsService) {
-        this.jwtRequestFilter = jwtRequestFilter;
-        this.userDetailsService = myUserDetailsService;
-    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {

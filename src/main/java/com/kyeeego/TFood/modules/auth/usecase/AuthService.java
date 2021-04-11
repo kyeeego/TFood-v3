@@ -5,6 +5,7 @@ import com.kyeeego.TFood.modules.auth.entity.dto.TokenPair;
 import com.kyeeego.TFood.modules.session.port.ISessionService;
 import com.kyeeego.TFood.modules.auth.entity.dto.LogInDto;
 import com.kyeeego.TFood.modules.auth.port.IAuthService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,22 +15,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService implements IAuthService {
 
     private final MyUserDetailsService myUserDetailsService;
     private final AuthenticationManager authenticationManager;
     private final ISessionService sessionService;
-
-    @Autowired
-    public AuthService(
-            MyUserDetailsService myUserDetailsService,
-            AuthenticationManager authenticationManager,
-            ISessionService sessionService
-    ) {
-        this.myUserDetailsService = myUserDetailsService;
-        this.authenticationManager = authenticationManager;
-        this.sessionService = sessionService;
-    }
 
     public TokenPair auth(LogInDto logInDto) {
 

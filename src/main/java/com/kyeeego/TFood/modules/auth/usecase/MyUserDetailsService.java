@@ -2,6 +2,7 @@ package com.kyeeego.TFood.modules.auth.usecase;
 
 import com.kyeeego.TFood.modules.user.entity.User;
 import com.kyeeego.TFood.modules.user.port.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,10 +13,10 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class MyUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -29,8 +30,5 @@ public class MyUserDetailsService implements UserDetailsService {
                 us.getPassword(),
                 new ArrayList<>()
         );
-//                .withUsername(username)
-//                .password(user.get().getPassword())
-//                .build();
     }
 }
