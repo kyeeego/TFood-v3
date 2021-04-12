@@ -8,4 +8,6 @@ public interface IAuthService {
     TokenPair auth(LogInDto logInDto);
 
     TokenPair refreshTokens(RefreshDto refreshDto);
+
+    void logout(String fingerprint);
 }

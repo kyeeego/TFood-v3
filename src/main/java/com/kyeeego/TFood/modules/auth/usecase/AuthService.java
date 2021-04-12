@@ -51,4 +51,8 @@ public class AuthService implements IAuthService {
         );
     }
 
+    @Override
+    public void logout(String fingerprint) {
+        sessionService.logout(fingerprint);
+    }
 }

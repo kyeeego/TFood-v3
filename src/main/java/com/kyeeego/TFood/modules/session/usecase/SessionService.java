@@ -75,6 +75,11 @@ public class SessionService implements ISessionService {
         return new TokenPair(newAccessToken, newRefreshToken);
     }
 
+    @Override
+    public void logout(String fingerprint) {
+        repository.deleteByFingerprint(fingerprint);
+    }
+
     private int getAmountOfSessions(String userEmail) {
         return repository.findByUserEmail(userEmail).size();
     }
