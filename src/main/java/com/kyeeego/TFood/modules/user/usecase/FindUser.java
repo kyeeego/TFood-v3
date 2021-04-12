@@ -1,5 +1,6 @@
 package com.kyeeego.TFood.modules.user.usecase;
 
+import com.kyeeego.TFood.modules.user.entity.User;
 import com.kyeeego.TFood.modules.user.exception.UserNotFoundException;
 import com.kyeeego.TFood.modules.user.port.IFindUser;
 import com.kyeeego.TFood.modules.user.port.UserRepository;
@@ -17,19 +18,13 @@ public class FindUser implements IFindUser {
 
     private final UserRepository userRepository;
 
-    public List<UserResponse> all() {
-        return userRepository.findAll()
-                .stream()
-                .map(UserResponse::new)
-                .collect(Collectors.toList());
+    public List<User> all() {
+        return userRepository.findAll();
     }
 
-    public UserResponse byID(String id) {
-        return new UserResponse(
-                userRepository
-                        .findById(id)
-                        .orElseThrow(UserNotFoundException::new)
-        );
-
+    public User byID(String id) {
+        return userRepository
+                .findById(id)
+                .orElseThrow(UserNotFoundException::new);
     }
 }

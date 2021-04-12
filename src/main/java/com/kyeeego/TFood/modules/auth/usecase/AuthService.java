@@ -6,6 +6,7 @@ import com.kyeeego.TFood.modules.session.port.ISessionService;
 import com.kyeeego.TFood.modules.auth.entity.dto.LogInDto;
 import com.kyeeego.TFood.modules.auth.port.IAuthService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,6 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService implements IAuthService {
@@ -32,6 +34,7 @@ public class AuthService implements IAuthService {
                     )
             );
         } catch (AuthenticationException e) {
+            log.error("Authentiction failed for email: " + logInDto.getEmail());
             throw new BadCredentialsException("Bad credentials");
         }
         final UserDetails userDetails = myUserDetailsService

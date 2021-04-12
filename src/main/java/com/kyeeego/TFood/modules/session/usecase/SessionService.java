@@ -25,7 +25,7 @@ public class SessionService implements ISessionService {
 
     @Override
     public TokenPair create(UserDetails userDetails, String fingerprint) {
-        if (getAmountOfSessions(userDetails.getUsername()) >= 4)
+        if (getAmountOfSessions(userDetails.getUsername()) >= 3)
             repository.deleteByUserEmail(userDetails.getUsername());
 
         Session session = new Session(

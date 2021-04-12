@@ -21,7 +21,7 @@ public class CreateUser implements ICreateUser {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserResponse create(UserCreateDto userInput) {
+    public User create(UserCreateDto userInput) {
         User user = new User(userInput);
 
         if (userRepository
@@ -38,6 +38,6 @@ public class CreateUser implements ICreateUser {
 
         userRepository.save(user);
 
-        return new UserResponse(user);
+        return user;
     }
 }
