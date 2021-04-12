@@ -3,6 +3,7 @@ target/
 !src/main/**/target/
 !src/test/**/target/
 data
+redis.conf
 
 src/main/resources/application.yml
 src/main/resources/application.properties
