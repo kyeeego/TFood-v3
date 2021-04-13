@@ -24,30 +24,30 @@ public class AuthService implements IAuthService {
     private final AuthenticationManager authenticationManager;
     private final ISessionService sessionService;
 
-    public TokenPair auth(LogInDto logInDto) {
+    public TokenPair auth(String email, String password, String fingerprint) {
 
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            logInDto.getEmail(),
-                            logInDto.getPassword()
+                            email,
+                            password
                     )
             );
         } catch (AuthenticationException e) {
-            log.error("Authentiction failed for email: " + logInDto.getEmail());
+            log.error("Authentiction failed for email: " + email);
             throw new BadCredentialsException("Bad credentials");
         }
         final UserDetails userDetails = myUserDetailsService
-                .loadUserByUsername(logInDto.getEmail());
+                .loadUserByUsername(email);
 
-        return sessionService.create(userDetails, logInDto.getFingerprint());
+        return sessionService.create(userDetails, fingerprint);
     }
 
     @Override
-    public TokenPair refreshTokens(RefreshDto refreshDto) {
+    public TokenPair refreshTokens(String fingerprint, String refreshToken) {
         return sessionService.renew(
-                refreshDto.getFingerprint(),
-                refreshDto.getToken()
+                fingerprint,
+                refreshToken
         );
     }
 

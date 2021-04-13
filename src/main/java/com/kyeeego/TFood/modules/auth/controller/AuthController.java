@@ -23,15 +23,17 @@ public class AuthController {
 
     @PostMapping
     public TokenPair logIn(@RequestBody @Valid LogInDto logInDto) {
-        return authService.auth(logInDto);
+        return authService.auth(logInDto.getEmail(),
+                logInDto.getPassword(),
+                logInDto.getFingerprint());
     }
 
     @PostMapping("/refresh")
     public TokenPair refreshAccessToken(@RequestBody @Valid RefreshDto refreshToken) {
-        return authService.refreshTokens(refreshToken);
+        return authService.refreshTokens(refreshToken.getFingerprint(), refreshToken.getToken());
     }
 
-    // TODO: get fingerprint from token
+    // TODO: google how to improve logout
     @PostMapping("/logout")
     public void logout(@RequestBody @Valid LogoutDto body) {
         authService.logout(body.getFingerprint());

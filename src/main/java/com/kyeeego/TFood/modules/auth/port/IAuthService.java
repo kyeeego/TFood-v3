@@ -5,9 +5,9 @@ import com.kyeeego.TFood.modules.auth.entity.dto.RefreshDto;
 import com.kyeeego.TFood.modules.auth.entity.dto.TokenPair;
 
 public interface IAuthService {
-    TokenPair auth(LogInDto logInDto);
+    TokenPair auth(String email, String password, String fingerprint);
 
-    TokenPair refreshTokens(RefreshDto refreshDto);
+    TokenPair refreshTokens(String fingerprint, String refreshToken);
 
     void logout(String fingerprint);
 }
