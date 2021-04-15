@@ -1,6 +1,6 @@
 package com.kyeeego.TFood.modules.auth.usecase.jwt;
 
-import com.kyeeego.TFood.modules.auth.port.IAccessTokenService;
+import com.kyeeego.TFood.modules.auth.port.AccessTokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class AccessTokenService implements IAccessTokenService {
+public class AccessTokenServiceImpl implements AccessTokenService {
 
     @Value("${accesstoken.secret}")
     private String key;

@@ -2,6 +2,7 @@ package com.kyeeego.TFood.modules.auth.usecase;
 
 import com.kyeeego.TFood.exception.ExpiredException;
 import com.kyeeego.TFood.exception.UnauthorizedException;
+import com.kyeeego.TFood.modules.auth.port.AuthService;
 import com.kyeeego.TFood.modules.auth.usecase.utils.AuthMocks;
 import com.kyeeego.TFood.modules.session.port.SessionRepository;
 import com.kyeeego.TFood.modules.user.exception.UserNotFoundException;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;
 
@@ -27,7 +29,7 @@ public class AuthServiceTest {
     @MockBean
     private SessionRepository sessionRepository;
     @MockBean
-    private MyUserDetailsService myUserDetailsService;
+    private UserDetailsService myUserDetailsService;
 
     @Autowired
     private AuthService authService;

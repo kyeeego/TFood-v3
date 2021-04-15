@@ -2,12 +2,11 @@ package com.kyeeego.TFood.modules.user.controller;
 
 import com.kyeeego.TFood.modules.user.entity.User;
 import com.kyeeego.TFood.modules.user.entity.dto.UserCreateDto;
-import com.kyeeego.TFood.modules.user.port.ICreateUser;
-import com.kyeeego.TFood.modules.user.port.IFindUser;
 import com.kyeeego.TFood.modules.user.entity.dto.UserResponse;
+import com.kyeeego.TFood.modules.user.port.CreateUser;
+import com.kyeeego.TFood.modules.user.port.FindUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +19,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final IFindUser findUser;
-    private final ICreateUser createUser;
+    private final FindUser findUser;
+    private final CreateUser createUser;
 
     @GetMapping
     public List<UserResponse> findAll() {

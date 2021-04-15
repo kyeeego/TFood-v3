@@ -3,25 +3,24 @@ package com.kyeeego.TFood.modules.session.usecase;
 import com.kyeeego.TFood.exception.ExpiredException;
 import com.kyeeego.TFood.exception.UnauthorizedException;
 import com.kyeeego.TFood.modules.auth.entity.dto.TokenPair;
-import com.kyeeego.TFood.modules.auth.port.IAccessTokenService;
-import com.kyeeego.TFood.modules.auth.usecase.MyUserDetailsService;
+import com.kyeeego.TFood.modules.auth.port.AccessTokenService;
 import com.kyeeego.TFood.modules.session.entity.Session;
-import com.kyeeego.TFood.modules.session.port.ISessionService;
 import com.kyeeego.TFood.modules.session.port.SessionRepository;
+import com.kyeeego.TFood.modules.session.port.SessionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class SessionService implements ISessionService {
+public class SessionServiceImpl implements SessionService {
 
     private final SessionRepository repository;
-    private final IAccessTokenService accessTokenService;
-    private final MyUserDetailsService myUserDetailsService;
+    private final AccessTokenService accessTokenService;
+    private final UserDetailsService myUserDetailsService;
 
     @Override
     public TokenPair create(UserDetails userDetails, String fingerprint) {

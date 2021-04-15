@@ -1,15 +1,12 @@
 package com.kyeeego.TFood.filters;
 
-import com.kyeeego.TFood.exception.ForbiddenException;
-import com.kyeeego.TFood.modules.auth.usecase.MyUserDetailsService;
-import com.kyeeego.TFood.modules.auth.usecase.jwt.AccessTokenService;
-import io.jsonwebtoken.ExpiredJwtException;
+import com.kyeeego.TFood.modules.auth.port.AccessTokenService;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -24,7 +21,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private final MyUserDetailsService myUserDetailsService;
+    private final UserDetailsService myUserDetailsService;
     private final AccessTokenService jwtService;
 
     @Override

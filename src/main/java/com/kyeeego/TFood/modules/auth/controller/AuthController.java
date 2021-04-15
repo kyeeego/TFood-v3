@@ -4,9 +4,8 @@ import com.kyeeego.TFood.modules.auth.entity.dto.LogInDto;
 import com.kyeeego.TFood.modules.auth.entity.dto.LogoutDto;
 import com.kyeeego.TFood.modules.auth.entity.dto.RefreshDto;
 import com.kyeeego.TFood.modules.auth.entity.dto.TokenPair;
-import com.kyeeego.TFood.modules.auth.port.IAuthService;
+import com.kyeeego.TFood.modules.auth.port.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final IAuthService authService;
+    private final AuthService authService;
 
     @PostMapping
     public TokenPair logIn(@RequestBody @Valid LogInDto logInDto) {
