@@ -17,6 +17,7 @@ public class User {
     private String email;
     private String password;
     private String birthdate;
+    private String gmttimezone;
 
     private int chest;
     private int weight;
@@ -35,6 +36,7 @@ public class User {
         this.gender = user.isGender();
         this.email = user.getEmail();
         this.password = user.getPassword();
+        this.gmttimezone = user.getGmttimezone();
     }
 
     @Override
