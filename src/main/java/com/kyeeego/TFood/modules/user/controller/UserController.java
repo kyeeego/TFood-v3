@@ -7,9 +7,9 @@ import com.kyeeego.TFood.modules.user.port.CreateUser;
 import com.kyeeego.TFood.modules.user.port.FindUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserResponse create(@Validated @RequestBody UserCreateDto userCreateDto) {
+    public UserResponse create(@Valid @RequestBody UserCreateDto userCreateDto) {
         User u = createUser.create(userCreateDto);
         log.info("User " + u.getId() + " has successfully registered email " + u.getEmail());
         return new UserResponse(u);
