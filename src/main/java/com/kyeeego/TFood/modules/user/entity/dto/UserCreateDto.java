@@ -4,13 +4,18 @@ import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Data
-public class  UserCreateDto {
+public class UserCreateDto {
 
     @Email(message = "should be email")
     @NotNull(message = "Should be present")
     private String email;
+
+    @NotNull
+    @Pattern(regexp = "([+-]):(1[0-2]|0?[1-9]):([03]0)")
+    private String gmttimezone;
 
     @NotNull(message = "Should be present")
     private String password;
