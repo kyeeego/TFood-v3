@@ -2,12 +2,11 @@ package com.kyeeego.TFood.modules.auth.usecase;
 
 import com.kyeeego.TFood.exception.ExpiredException;
 import com.kyeeego.TFood.exception.UnauthorizedException;
-import com.kyeeego.TFood.modules.auth.port.AuthService;
+import com.kyeeego.TFood.application.port.auth.AuthService;
 import com.kyeeego.TFood.modules.auth.usecase.utils.AuthMocks;
-import com.kyeeego.TFood.modules.session.port.SessionRepository;
-import com.kyeeego.TFood.modules.user.exception.UserNotFoundException;
-import com.kyeeego.TFood.modules.user.port.UserRepository;
-import org.junit.jupiter.api.BeforeAll;
+import com.kyeeego.TFood.adapter.SessionRepository;
+import com.kyeeego.TFood.exception.UserNotFoundException;
+import com.kyeeego.TFood.adapter.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
