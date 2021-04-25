@@ -1,7 +1,7 @@
 package com.kyeeego.TFood.application.service.auth;
 
 import com.kyeeego.TFood.domain.User;
-import com.kyeeego.TFood.adapter.UserRepository;
+import com.kyeeego.TFood.adapter.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

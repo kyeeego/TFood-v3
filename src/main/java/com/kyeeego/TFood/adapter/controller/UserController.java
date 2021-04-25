@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.adapter;
+package com.kyeeego.TFood.adapter.controller;
 
 import com.kyeeego.TFood.domain.User;
 import com.kyeeego.TFood.domain.dto.user.UserCreateDto;

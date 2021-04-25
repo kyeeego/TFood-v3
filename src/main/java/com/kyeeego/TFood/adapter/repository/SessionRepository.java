@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.adapter;
+package com.kyeeego.TFood.adapter.repository;
 
 import com.kyeeego.TFood.domain.Session;
 import org.springframework.data.mongodb.repository.MongoRepository;

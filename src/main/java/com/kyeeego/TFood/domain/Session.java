@@ -12,13 +12,9 @@ public class Session {
 
     @Id
     private String id;
-
     private String refreshToken;
-
     private String userEmail;
-
     private Long expiresAt;
-
     private String fingerprint;
 
     public Session(String userEmail, Long expiresAt, String fingerprint) {

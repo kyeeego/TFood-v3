@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.adapter;
+package com.kyeeego.TFood.adapter.controller;
 
 import com.kyeeego.TFood.domain.Day;
 import com.kyeeego.TFood.application.port.DayService;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/day")
@@ -30,6 +31,11 @@ public class DayController {
     public void rate(Principal principal,
                      @RequestParam("v") @Min(0) @Max(5) float v) {
         dayService.rate(v, principal);
+    }
+
+    @GetMapping("/week")
+    public List<Day> pastWeek(Principal principal) {
+        return dayService.pastWeek(principal);
     }
 
 }
