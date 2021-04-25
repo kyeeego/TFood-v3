@@ -17,8 +17,8 @@ public class User {
     private String email;
     private String password;
     private String birthdate;
-    private String gmttimezone;
 
+    private int gmttimezone;
     private int chest;
     private int weight;
     private int height;
