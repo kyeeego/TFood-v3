@@ -19,6 +19,7 @@ public class DayServiceImpl implements DayService {
 
     private final DayRepository dayRepository;
     private final UserRepository userRepository;
+    private final Clock clock;
 
     @Override
     public Day today(Principal principal) {
@@ -49,7 +50,7 @@ public class DayServiceImpl implements DayService {
 
     @Override
     public List<Day> pastWeek(Principal principal) {
-        LocalDate monday = LocalDate.now().with(TemporalAdjusters.previous(DayOfWeek.MONDAY));
+        LocalDate monday = LocalDate.now(clock).with(TemporalAdjusters.previous(DayOfWeek.MONDAY));
         List<Day> wholeDayHistory = dayRepository.findByUser(principal.getName());
 
         return wholeDayHistory.stream()
