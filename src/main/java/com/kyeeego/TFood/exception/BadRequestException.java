@@ -1,10 +1,13 @@
 package com.kyeeego.TFood.exception;
 
-public class BadRequestException extends RuntimeException {
-    public BadRequestException() {
+import org.springframework.http.HttpStatus;
+
+public class BadRequestException extends ApiException {
+    public BadRequestException(String message) {
+        super(HttpStatus.BAD_REQUEST, message);
     }
 
-    public BadRequestException(String message) {
-        super(message);
+    public BadRequestException() {
+        super(HttpStatus.BAD_REQUEST, "Bad request");
     }
 }

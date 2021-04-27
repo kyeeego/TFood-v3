@@ -1,7 +1,9 @@
 package com.kyeeego.TFood.exception;
 
-public class UserNotFoundException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class UserNotFoundException extends ApiException {
     public UserNotFoundException() {
-        super();
+        super(HttpStatus.NOT_FOUND, "User not found");
     }
 }

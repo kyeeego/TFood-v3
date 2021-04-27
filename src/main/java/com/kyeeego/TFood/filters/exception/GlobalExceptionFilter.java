@@ -1,10 +1,6 @@
 package com.kyeeego.TFood.filters.exception;
 
-import com.kyeeego.TFood.exception.BadRequestException;
-import com.kyeeego.TFood.exception.ForbiddenException;
-import com.kyeeego.TFood.exception.UnauthorizedException;
-import com.kyeeego.TFood.exception.UserAlreadyExistsException;
-import com.kyeeego.TFood.exception.UserNotFoundException;
+import com.kyeeego.TFood.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,7 +15,7 @@ public class GlobalExceptionFilter {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleRUntimeException(RuntimeException ex) {
-        return defaultExceptionHandler(ex);
+        return runtimeExceptionHandler(ex, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
@@ -41,9 +37,9 @@ public class GlobalExceptionFilter {
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ErrorResponse handleBadCredentials(BadCredentialsException ex) {
-        return defaultExceptionHandler(ex);
+        return runtimeExceptionHandler(ex, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(ForbiddenException.class)
@@ -61,15 +57,16 @@ public class GlobalExceptionFilter {
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleValidatedEx(ConstraintViolationException ex) {
-        return defaultExceptionHandler(ex);
+        return runtimeExceptionHandler(ex, HttpStatus.BAD_REQUEST);
     }
 
 
-    private <E extends RuntimeException> ErrorResponse defaultExceptionHandler(E ex) {
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setMessage(ex.getMessage());
-        errorResponse.setStatus(HttpStatus.FORBIDDEN);
-        return errorResponse;
+    private <E extends ApiException> ErrorResponse defaultExceptionHandler(E ex) {
+        return new ErrorResponse(ex.getStatus(), ex.getMessage());
+    }
+
+    private <E extends RuntimeException> ErrorResponse runtimeExceptionHandler(E ex, HttpStatus status) {
+        return new ErrorResponse(status, ex.getMessage());
     }
 
 }

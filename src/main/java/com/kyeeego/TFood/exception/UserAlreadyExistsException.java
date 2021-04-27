@@ -1,7 +1,9 @@
 package com.kyeeego.TFood.exception;
 
-public class UserAlreadyExistsException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class UserAlreadyExistsException extends ApiException {
     public UserAlreadyExistsException() {
-        super();
+        super(HttpStatus.CONFLICT, "User already exists");
     }
 }

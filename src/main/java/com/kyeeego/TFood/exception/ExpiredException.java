@@ -1,11 +1,13 @@
 package com.kyeeego.TFood.exception;
 
-public class ExpiredException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class ExpiredException extends ApiException {
     public ExpiredException() {
-        super("Expired");
+        super(HttpStatus.GONE, "Expired");
     }
 
     public ExpiredException(String message) {
-        super(message);
+        super(HttpStatus.GONE, message);
     }
 }

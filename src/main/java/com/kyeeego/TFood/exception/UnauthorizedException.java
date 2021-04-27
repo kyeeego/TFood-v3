@@ -1,9 +1,13 @@
 package com.kyeeego.TFood.exception;
 
-public class UnauthorizedException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class UnauthorizedException extends ApiException {
     public UnauthorizedException(String message) {
-        super(message);
+        super(HttpStatus.UNAUTHORIZED, message);
     }
 
-    public UnauthorizedException() { }
+    public UnauthorizedException() {
+        super(HttpStatus.UNAUTHORIZED, "Unauthorized");
+    }
 }
