@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.domain;
+package com.kyeeego.TFood.domain.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

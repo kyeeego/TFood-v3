@@ -1,6 +1,6 @@
 package com.kyeeego.TFood.adapter.repository;
 
-import com.kyeeego.TFood.domain.Day;
+import com.kyeeego.TFood.domain.models.Day;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.time.LocalDate;

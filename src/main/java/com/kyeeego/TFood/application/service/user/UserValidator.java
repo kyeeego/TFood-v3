@@ -1,6 +1,6 @@
 package com.kyeeego.TFood.application.service.user;
 
-import com.kyeeego.TFood.domain.User;
+import com.kyeeego.TFood.domain.models.User;
 
 public class UserValidator {
 

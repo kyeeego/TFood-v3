@@ -4,7 +4,7 @@ import com.kyeeego.TFood.exception.ExpiredException;
 import com.kyeeego.TFood.exception.UnauthorizedException;
 import com.kyeeego.TFood.domain.dto.auth.TokenPair;
 import com.kyeeego.TFood.application.port.auth.AccessTokenService;
-import com.kyeeego.TFood.domain.Session;
+import com.kyeeego.TFood.domain.models.Session;
 import com.kyeeego.TFood.adapter.repository.SessionRepository;
 import com.kyeeego.TFood.application.port.SessionService;
 import lombok.RequiredArgsConstructor;

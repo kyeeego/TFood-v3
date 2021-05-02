@@ -1,7 +1,7 @@
 package com.kyeeego.TFood.application.service;
 
 import com.kyeeego.TFood.adapter.repository.UserRepository;
-import com.kyeeego.TFood.domain.Day;
+import com.kyeeego.TFood.domain.models.Day;
 import com.kyeeego.TFood.adapter.repository.DayRepository;
 import com.kyeeego.TFood.application.port.DayService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class DayServiceImpl implements DayService {
+public final class DayServiceImpl implements DayService {
 
     private final DayRepository dayRepository;
     private final UserRepository userRepository;

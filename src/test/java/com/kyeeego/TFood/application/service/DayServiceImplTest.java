@@ -2,25 +2,18 @@ package com.kyeeego.TFood.application.service;
 
 import com.kyeeego.TFood.adapter.repository.DayRepository;
 import com.kyeeego.TFood.application.port.DayService;
-import com.kyeeego.TFood.domain.Day;
-import net.bytebuddy.asm.Advice;
-import org.junit.jupiter.api.BeforeAll;
+import com.kyeeego.TFood.domain.models.Day;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 
 import java.security.Principal;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

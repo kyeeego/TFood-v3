@@ -1,6 +1,6 @@
 package com.kyeeego.TFood.modules.auth.usecase.utils;
 
-import com.kyeeego.TFood.domain.Session;
+import com.kyeeego.TFood.domain.models.Session;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.ArrayList;

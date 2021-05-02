@@ -1,6 +1,6 @@
 package com.kyeeego.TFood.adapter.controller;
 
-import com.kyeeego.TFood.domain.Day;
+import com.kyeeego.TFood.domain.models.Day;
 import com.kyeeego.TFood.application.port.DayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;

@@ -1,6 +1,6 @@
 package com.kyeeego.TFood.application.service.user;
 
-import com.kyeeego.TFood.domain.User;
+import com.kyeeego.TFood.domain.models.User;
 import com.kyeeego.TFood.domain.dto.user.UserCreateDto;
 import com.kyeeego.TFood.exception.BadRequestException;
 import com.kyeeego.TFood.exception.UserAlreadyExistsException;

@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.domain;
+package com.kyeeego.TFood.domain.models;
 
 import com.kyeeego.TFood.domain.dto.user.UserCreateDto;
 import lombok.Data;

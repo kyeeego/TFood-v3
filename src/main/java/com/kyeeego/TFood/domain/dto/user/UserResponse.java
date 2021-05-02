@@ -1,6 +1,6 @@
 package com.kyeeego.TFood.domain.dto.user;
 
-import com.kyeeego.TFood.domain.User;
+import com.kyeeego.TFood.domain.models.User;
 import lombok.Data;
 
 @Data

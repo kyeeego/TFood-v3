@@ -1,6 +1,6 @@
 package com.kyeeego.TFood.application.service.auth;
 
-import com.kyeeego.TFood.domain.User;
+import com.kyeeego.TFood.domain.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

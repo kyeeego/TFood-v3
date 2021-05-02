@@ -1,6 +1,6 @@
 package com.kyeeego.TFood.adapter.repository;
 
-import com.kyeeego.TFood.domain.Session;
+import com.kyeeego.TFood.domain.models.Session;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
