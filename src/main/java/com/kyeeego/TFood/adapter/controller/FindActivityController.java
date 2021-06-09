@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/activity")
+@RequestMapping("/api/v1/phys-activity")
 @RequiredArgsConstructor
-public class ActivityController {
+public class FindActivityController {
 
     private final ActivityService activityService;
 

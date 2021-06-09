@@ -14,7 +14,7 @@ public class GlobalExceptionFilter {
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleRUntimeException(RuntimeException ex) {
+    public ErrorResponse handleRuntimeException(RuntimeException ex) {
         return runtimeExceptionHandler(ex, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

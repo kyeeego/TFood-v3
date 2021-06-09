@@ -33,7 +33,6 @@ class DayServiceImplTest {
     @MockBean
     private Clock clock;
 
-    // придется опять трахаться со spring security...
     @BeforeEach
     void setUp() {
         Day day1 = new Day(user.getName(), LocalDate.of(2021, 4, 12 ));

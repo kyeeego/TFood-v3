@@ -23,9 +23,8 @@ public final class DayServiceImpl implements DayService {
 
     @Override
     public Day today(Principal principal) {
-        // user could not possibly be null so we can ignore the warning
         int userTimezone = userRepository.findByEmail(principal.getName())
-                .get()
+                .orElseThrow()
                 .getGmttimezone();
 
         long userTime = System.currentTimeMillis() + userTimezone * 60 * 1000L;
