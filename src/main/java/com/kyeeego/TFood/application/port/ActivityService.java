@@ -1,14 +1,14 @@
 package com.kyeeego.TFood.application.port;
 
-import com.kyeeego.TFood.domain.models.Activity;
-import com.kyeeego.TFood.domain.models.Product;
-import com.kyeeego.TFood.domain.types.ActivityType;
+import com.kyeeego.TFood.domain.dto.activity.AddActivityDto;
+import com.kyeeego.TFood.domain.dto.activity.AddProductDto;
+import com.kyeeego.TFood.domain.models.Day;
 
-import java.util.List;
+import java.security.Principal;
 
 public interface ActivityService {
-    List<Activity> findAllActivitiesWithQuery(ActivityType type, String q);
-    Activity findActivityById(String id);
-    List<Product> findProductsByQuery(String q);
-    Product findProductById(String id);
+    Day addWater(Principal principal, int amount);
+    Day addProduct(Principal principal, AddProductDto addFoodDto);
+    Day setSleepTime(Principal principal, int amount);
+    Day addActivity(Principal principal, AddActivityDto addActivityDto);
 }

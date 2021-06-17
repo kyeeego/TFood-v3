@@ -9,4 +9,5 @@ public interface DayService {
     Day today(Principal principal);
     void rate(float rating, Principal principal);
     List<Day> pastWeek(Principal principal);
+    void update(Day day);
 }

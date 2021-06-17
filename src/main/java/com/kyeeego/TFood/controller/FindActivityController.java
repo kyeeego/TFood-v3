@@ -1,6 +1,6 @@
-package com.kyeeego.TFood.adapter.controller;
+package com.kyeeego.TFood.controller;
 
-import com.kyeeego.TFood.application.port.ActivityService;
+import com.kyeeego.TFood.application.port.ActivityFindService;
 import com.kyeeego.TFood.domain.models.Activity;
 import com.kyeeego.TFood.domain.models.Product;
 import com.kyeeego.TFood.domain.types.ActivityType;
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/phys-activity")
+@RequestMapping("/api/v1/find-activity")
 @RequiredArgsConstructor
 public class FindActivityController {
 
-    private final ActivityService activityService;
+    private final ActivityFindService activityService;
 
-    @GetMapping("/")
+    @GetMapping
     public List<Activity> findAllActivities(@RequestParam("type") ActivityType type, @RequestParam("q") String q) {
         return activityService.findAllActivitiesWithQuery(type, q);
     }

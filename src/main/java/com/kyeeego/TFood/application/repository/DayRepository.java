@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.adapter.repository;
+package com.kyeeego.TFood.application.repository;
 
 import com.kyeeego.TFood.domain.models.Day;
 import org.springframework.data.mongodb.repository.MongoRepository;

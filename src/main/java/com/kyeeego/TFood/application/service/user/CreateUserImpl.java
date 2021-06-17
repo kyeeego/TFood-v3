@@ -5,7 +5,7 @@ import com.kyeeego.TFood.domain.dto.user.UserCreateDto;
 import com.kyeeego.TFood.exception.BadRequestException;
 import com.kyeeego.TFood.exception.UserAlreadyExistsException;
 import com.kyeeego.TFood.application.port.user.CreateUser;
-import com.kyeeego.TFood.adapter.repository.UserRepository;
+import com.kyeeego.TFood.application.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

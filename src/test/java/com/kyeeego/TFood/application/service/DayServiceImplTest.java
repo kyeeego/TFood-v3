@@ -1,6 +1,6 @@
 package com.kyeeego.TFood.application.service;
 
-import com.kyeeego.TFood.adapter.repository.DayRepository;
+import com.kyeeego.TFood.application.repository.DayRepository;
 import com.kyeeego.TFood.application.port.DayService;
 import com.kyeeego.TFood.domain.models.Day;
 import org.junit.jupiter.api.BeforeEach;

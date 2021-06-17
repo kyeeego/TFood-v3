@@ -1,6 +1,7 @@
 package com.kyeeego.TFood.domain.models;
 
 import com.kyeeego.TFood.domain.dto.user.UserCreateDto;
+import com.kyeeego.TFood.domain.types.PFC;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -56,7 +57,7 @@ public class User {
         return new PFC(prots / 4, fats / 9, carbs / 4);
     }
 
-    private double perfectBodyMass() {
+    public double perfectBodyMass() {
         int x1;
         if (height >= 140 && height <= 166)
             x1 = height - 100;
@@ -72,7 +73,7 @@ public class User {
         return (x1 + x2 + x3) / 3.0;
     }
 
-    private double basalMetabolicRate(boolean isPerfect) {
+    public double basalMetabolicRate(boolean isPerfect) {
         if (!isPerfect)
             return gender
                     ? 17.5 * weight + 651
@@ -124,17 +125,5 @@ public class User {
                 * bmr / 24;
 
         return Math.round(sleep + housework + thermogenesis + sport + otherWork);
-    }
-}
-
-class PFC {
-    public double prots;
-    public double fats;
-    public double carbs;
-
-    public PFC(double prots, double fats, double carbs) {
-        this.prots = Math.round(prots);
-        this.fats = Math.round(fats);
-        this.carbs = Math.round(carbs);
     }
 }

@@ -1,8 +1,8 @@
 package com.kyeeego.TFood.application.service;
 
-import com.kyeeego.TFood.adapter.repository.UserRepository;
+import com.kyeeego.TFood.application.repository.UserRepository;
 import com.kyeeego.TFood.domain.models.Day;
-import com.kyeeego.TFood.adapter.repository.DayRepository;
+import com.kyeeego.TFood.application.repository.DayRepository;
 import com.kyeeego.TFood.application.port.DayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -47,6 +47,7 @@ public final class DayServiceImpl implements DayService {
         dayRepository.save(day);
     }
 
+    // FIXME: this is bad. Fix later.
     @Override
     public List<Day> pastWeek(Principal principal) {
         LocalDate monday = LocalDate.now(clock).with(TemporalAdjusters.previous(DayOfWeek.MONDAY));
@@ -55,5 +56,10 @@ public final class DayServiceImpl implements DayService {
         return wholeDayHistory.stream()
                 .filter((day) -> monday.equals(day.getDate()) || monday.isBefore(day.getDate()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void update(Day day) {
+        dayRepository.save(day);
     }
 }
