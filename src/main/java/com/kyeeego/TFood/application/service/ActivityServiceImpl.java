@@ -2,8 +2,9 @@ package com.kyeeego.TFood.application.service;
 
 import com.kyeeego.TFood.application.port.ActivityFindService;
 import com.kyeeego.TFood.application.port.ActivityService;
+import com.kyeeego.TFood.application.port.CalculationService;
 import com.kyeeego.TFood.application.port.DayService;
- import com.kyeeego.TFood.application.repository.UserRepository;
+import com.kyeeego.TFood.application.repository.UserRepository;
 import com.kyeeego.TFood.domain.dto.activity.AddActivityDto;
 import com.kyeeego.TFood.domain.dto.activity.AddProductDto;
 import com.kyeeego.TFood.domain.models.Activity;
@@ -23,6 +24,7 @@ public class ActivityServiceImpl implements ActivityService {
     private final DayService dayService;
     private final UserRepository userRepository;
     private final ActivityFindService activityFindService;
+    private final CalculationService calculationService;
 
     @Override
     public Day addWater(Principal principal, int amount) {
@@ -48,16 +50,16 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Day setSleepTime(Principal principal, int amount) {
+    public Day setSleepTime(Principal principal, int duration) {
         Day today = dayService.today(principal);
         User user = userRepository.findByEmail(principal.getName()).get();
 
-        today.setSleepTime(amount);
+        today.setSleepTime(duration);
 
-        double energyNeed = user.dailyEnergyNeed(amount, 0, 0, 0);
+        double energyNeed = calculationService.dailyEnergyNeed(user, duration);
 
-        double waterNeed = user.waterNeed(energyNeed);
-        PFC pfc = user.dailyMacronutrientsNeed(energyNeed);
+        double waterNeed = calculationService.waterNeed(user, energyNeed);
+        PFC pfc = calculationService.dailyMacronutrientsNeed(energyNeed);
 
         today.setCarbsNeed((float) pfc.getCarbs());
         today.setFatsNeed((float) pfc.getFats());
@@ -77,7 +79,7 @@ public class ActivityServiceImpl implements ActivityService {
         Activity activity = activityFindService
                 .findActivityById(addActivityDto.getActivityId());
 
-        double energyNeed = user.sportEnergyNeed(addActivityDto.getLength(), activity.getEcost());
+        double energyNeed = calculationService.sportEnergyNeed(user, addActivityDto.getLength(), activity.getEcost());
         today.setKcal((float) (today.getKcal() - energyNeed));
         dayService.update(today);
 
