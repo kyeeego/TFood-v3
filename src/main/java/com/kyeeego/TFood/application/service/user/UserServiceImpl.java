@@ -1,16 +1,25 @@
 package com.kyeeego.TFood.application.service.user;
 
+import com.kyeeego.TFood.application.port.CalculationService;
 import com.kyeeego.TFood.application.port.UserService;
 import com.kyeeego.TFood.application.repository.UserRepository;
 import com.kyeeego.TFood.domain.dto.user.UserCreateDto;
+import com.kyeeego.TFood.domain.dto.user.UserResponse;
+import com.kyeeego.TFood.domain.dto.user.UserUpdateDto;
+import com.kyeeego.TFood.domain.dto.user.UserUpdateResponse;
 import com.kyeeego.TFood.domain.models.User;
+import com.kyeeego.TFood.domain.types.WeightResult;
 import com.kyeeego.TFood.exception.BadRequestException;
 import com.kyeeego.TFood.exception.UserAlreadyExistsException;
 import com.kyeeego.TFood.exception.UserNotFoundException;
+import com.kyeeego.TFood.utils.NullAwareBeanUtilsBean;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -19,18 +28,21 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CalculationService calculationService;
 
-
+    @Override
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
+    @Override
     public User findById(String id) {
         return userRepository
                 .findById(id)
                 .orElseThrow(UserNotFoundException::new);
     }
 
+    @Override
     public User create(UserCreateDto userInput) {
         User user = new User(userInput);
 
@@ -51,4 +63,21 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    @SneakyThrows
+    public UserUpdateResponse update(Principal principal, UserUpdateDto userUpdateDto) {
+        User user = userRepository.findByEmail(principal.getName()).get();
+
+        BeanUtilsBean bub = new NullAwareBeanUtilsBean();
+        bub.copyProperties(user, userUpdateDto);
+
+        userRepository.save(user);
+
+        WeightResult weightResult = calculationService.weightHeightRelation(user.getWeight(), user.getHeight(), user.isGender());
+
+        return new UserUpdateResponse(
+                weightResult,
+                new UserResponse(user)
+        );
+    }
 }

@@ -29,12 +29,6 @@ public class User {
     }
 
     public User(UserCreateDto user) {
-        this.birthdate = user.getBirthdate();
-        this.username = user.getUsername();
-        this.chest = user.getChest();
-        this.weight = user.getWeight();
-        this.height = user.getHeight();
-        this.gender = user.isGender();
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.gmttimezone = user.getGmttimezone();

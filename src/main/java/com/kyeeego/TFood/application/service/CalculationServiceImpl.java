@@ -1,12 +1,21 @@
 package com.kyeeego.TFood.application.service;
 
 import com.kyeeego.TFood.application.port.CalculationService;
+import com.kyeeego.TFood.application.repository.WHRRepository;
 import com.kyeeego.TFood.domain.models.User;
+import com.kyeeego.TFood.domain.models.WHR;
 import com.kyeeego.TFood.domain.types.PFC;
+import com.kyeeego.TFood.domain.types.WeightResult;
+import com.kyeeego.TFood.domain.types.WeightValue;
+import com.kyeeego.TFood.exception.NotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CalculationServiceImpl implements CalculationService {
+
+    private final WHRRepository whrRepository;
 
     public PFC dailyMacronutrientsNeed(double DEN) {
         double prots = DEN * 0.12;
@@ -79,4 +88,25 @@ public class CalculationServiceImpl implements CalculationService {
         return Math.round(sleep + thermogenesis + otherWork);
     }
 
+    @Override
+    public WeightResult weightHeightRelation(int weight, int height, boolean gender) {
+        WHR relation = whrRepository
+                .findByGenderAndHeight(gender, height)
+                .orElseThrow(NotFoundException::new);
+
+        WeightValue weightValue;
+        double border = weight;
+
+        if (weight >= relation.getToo_much()) {
+            weightValue = WeightValue.TOO_MUCH;
+            border = relation.getToo_much();
+        } else if (weight <= relation.getToo_little()) {
+            weightValue = WeightValue.TOO_LITTLE;
+            border = relation.getToo_little();
+        } else {
+            weightValue = WeightValue.PERFECT;
+        }
+
+        return new WeightResult(weightValue, border);
+    }
 }

@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.controller;
+package com.kyeeego.TFood.application.controller;
 
 import com.kyeeego.TFood.domain.dto.auth.LogInDto;
 import com.kyeeego.TFood.domain.dto.auth.LogoutDto;

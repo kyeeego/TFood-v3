@@ -1,4 +1,4 @@
-package com.kyeeego.TFood.controller;
+package com.kyeeego.TFood.application.controller;
 
 import com.kyeeego.TFood.application.port.ActivityFindService;
 import com.kyeeego.TFood.domain.models.Activity;
