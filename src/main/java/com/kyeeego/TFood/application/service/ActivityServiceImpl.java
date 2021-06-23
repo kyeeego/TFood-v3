@@ -65,7 +65,7 @@ public class ActivityServiceImpl implements ActivityService {
         today.setFatsNeed((float) pfc.getFats());
         today.setProtsNeed((float) pfc.getProts());
         today.setWaterNeed((int) waterNeed);
-        today.setKcal((float) energyNeed);
+        today.setKcalNeed((float) energyNeed);
 
         dayService.update(today);
         return today;
@@ -79,8 +79,12 @@ public class ActivityServiceImpl implements ActivityService {
         Activity activity = activityFindService
                 .findActivityById(addActivityDto.getActivityId());
 
+
         double energyNeed = calculationService.sportEnergyNeed(user, addActivityDto.getLength(), activity.getEcost());
+
+        today.addActivity(activity, addActivityDto.getLength(), energyNeed);
         today.setKcal((float) (today.getKcal() - energyNeed));
+
         dayService.update(today);
 
         return today;

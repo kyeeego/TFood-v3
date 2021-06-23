@@ -2,9 +2,11 @@ package com.kyeeego.TFood.domain.models;
 
 import com.kyeeego.TFood.domain.types.Eating;
 import com.kyeeego.TFood.domain.types.Minerals;
+import com.kyeeego.TFood.domain.types.StoredActivity;
 import com.kyeeego.TFood.domain.types.Vitamins;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.Store;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -48,6 +50,8 @@ public class Day {
     private List<Product> dinner;
     private List<Product> snack;
 
+    private List<StoredActivity> activity;
+
     private Vitamins vitamins;
     private Minerals minerals;
 
@@ -65,8 +69,18 @@ public class Day {
         lunch = new ArrayList<>();
         dinner = new ArrayList<>();
         snack = new ArrayList<>();
+        activity = new ArrayList<>();
         user = userEmail;
         date = day;
+    }
+
+    public void addActivity(Activity activity, int duration, double kcal) {
+        StoredActivity storedActivity = new StoredActivity();
+        storedActivity.setActivity(activity);
+        storedActivity.setDuration(duration);
+        storedActivity.setKcal(kcal);
+
+        this.activity.add(storedActivity);
     }
 
     public void addEating(Eating eating, Product product, float k) {

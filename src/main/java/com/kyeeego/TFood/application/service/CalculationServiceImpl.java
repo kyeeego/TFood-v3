@@ -72,12 +72,13 @@ public class CalculationServiceImpl implements CalculationService {
     }
 
     public double sportEnergyNeed(User user, double duration, double energeticCost) {
-        return user.getWeight() * energeticCost * duration / 60 * basalMetabolicRate(user, false);
+        return user.getWeight() * energeticCost * (duration / 60) * basalMetabolicRate(user, false) / 1000;
     }
 
     public double dailyEnergyNeed(User user, double sleepDuration) {
 
         double bmr = basalMetabolicRate(user,false);
+        sleepDuration /= 60;
 
         double sleep = sleepEnergyNeed(user, sleepDuration);
         double thermogenesis = thermogenesisEnergyNeed(user);
