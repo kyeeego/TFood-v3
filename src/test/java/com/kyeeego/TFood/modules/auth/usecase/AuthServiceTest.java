@@ -1,11 +1,11 @@
 package com.kyeeego.TFood.modules.auth.usecase;
 
 import com.kyeeego.TFood.exception.ExpiredException;
+import com.kyeeego.TFood.exception.NotFoundException;
 import com.kyeeego.TFood.exception.UnauthorizedException;
 import com.kyeeego.TFood.application.port.auth.AuthService;
 import com.kyeeego.TFood.modules.auth.usecase.utils.AuthMocks;
 import com.kyeeego.TFood.application.repository.SessionRepository;
-import com.kyeeego.TFood.exception.UserNotFoundException;
 import com.kyeeego.TFood.application.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ public class AuthServiceTest {
 
     @BeforeEach
     void setUpMocks() {
-        Mockito.doThrow(UserNotFoundException.class).when(myUserDetailsService)
+        Mockito.doThrow(NotFoundException.class).when(myUserDetailsService)
                 .loadUserByUsername(Mockito.anyString());
         Mockito.doReturn(AuthMocks.User).when(myUserDetailsService)
                 .loadUserByUsername("a@a.a");

@@ -30,7 +30,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public boolean isExpired(String token) {
+    private boolean isExpired(String token) {
         return extractExpirationDate(token).before(new Date());
     }
 

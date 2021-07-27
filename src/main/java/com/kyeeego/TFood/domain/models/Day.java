@@ -45,31 +45,17 @@ public class Day {
     private String user;
     private LocalDate date;
 
-    private List<Product> breakfast;
-    private List<Product> lunch;
-    private List<Product> dinner;
-    private List<Product> snack;
+    private List<Product> breakfast = new ArrayList<>();
+    private List<Product> lunch = new ArrayList<>();
+    private List<Product> dinner = new ArrayList<>();
+    private List<Product> snack = new ArrayList<>();
 
-    private List<StoredActivity> activity;
+    private List<StoredActivity> activity = new ArrayList<>();
 
-    private Vitamins vitamins;
-    private Minerals minerals;
+    private Vitamins vitamins = new Vitamins();
+    private Minerals minerals = new Minerals();
 
     public Day(String userEmail, LocalDate day) {
-        water = 0; waterNeed = 0;
-        carbs = 0f; carbsNeed = 0f;
-        fats = 0f; fatsNeed = 0f;
-        prots = 0f; protsNeed = 0f;
-        kcal = 0f; kcalNeed = 0f;
-        rating = 0f;
-        sleepTime = 0f;
-        vitamins = new Vitamins();
-        minerals = new Minerals();
-        breakfast = new ArrayList<>();
-        lunch = new ArrayList<>();
-        dinner = new ArrayList<>();
-        snack = new ArrayList<>();
-        activity = new ArrayList<>();
         user = userEmail;
         date = day;
     }

@@ -18,9 +18,9 @@ public class GlobalExceptionFilter {
         return runtimeExceptionHandler(ex, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleUserNotFound(UserNotFoundException ex) {
+    public ErrorResponse handleUserNotFound(NotFoundException ex) {
         return defaultExceptionHandler(ex);
     }
 
@@ -30,9 +30,9 @@ public class GlobalExceptionFilter {
         return defaultExceptionHandler(ex);
     }
 
-    @ExceptionHandler(UserAlreadyExistsException.class)
+    @ExceptionHandler(AlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleUserAlreadyExists(UserAlreadyExistsException ex) {
+    public ErrorResponse handleUserAlreadyExists(AlreadyExistsException ex) {
         return defaultExceptionHandler(ex);
     }
 

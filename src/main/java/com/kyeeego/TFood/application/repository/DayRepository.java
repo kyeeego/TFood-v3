@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface DayRepository extends MongoRepository<Day, String> {
     Optional<Day> findByUserAndDate(String user, LocalDate date);
-
+    List<Day> findByUserAndDateAfter(String user, LocalDate date);
     List<Day> findByUser(String user);
 }

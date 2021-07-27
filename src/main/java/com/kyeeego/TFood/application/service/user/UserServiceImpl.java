@@ -9,9 +9,9 @@ import com.kyeeego.TFood.domain.dto.user.UserUpdateDto;
 import com.kyeeego.TFood.domain.dto.user.UserUpdateResponse;
 import com.kyeeego.TFood.domain.models.User;
 import com.kyeeego.TFood.domain.types.WeightResult;
+import com.kyeeego.TFood.exception.AlreadyExistsException;
 import com.kyeeego.TFood.exception.BadRequestException;
-import com.kyeeego.TFood.exception.UserAlreadyExistsException;
-import com.kyeeego.TFood.exception.UserNotFoundException;
+import com.kyeeego.TFood.exception.NotFoundException;
 import com.kyeeego.TFood.utils.NullAwareBeanUtilsBean;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -39,20 +39,23 @@ public class UserServiceImpl implements UserService {
     public User findById(String id) {
         return userRepository
                 .findById(id)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("User already exists"));
     }
 
     @Override
     public User create(UserCreateDto userInput) {
         User user = new User(userInput);
+        UserValidator userValidator = new UserValidator(user);
+
+        if (!userValidator.validateCreate())
+            throw new BadRequestException("Couldn't validate user");
 
         if (userRepository
                 .findByEmail(user.getEmail())
-                .isPresent())
-            throw new UserAlreadyExistsException();
+                .isPresent()) {
+            throw new AlreadyExistsException("User already exists");
+        }
 
-        if (!UserValidator.validateCreate(user))
-            throw new BadRequestException("Couldn't validate user");
 
         user.setPassword(
                 passwordEncoder.encode(user.getPassword())

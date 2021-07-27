@@ -35,7 +35,7 @@ public class SessionServiceImpl implements SessionService {
         final String refreshToken = UUID.randomUUID().toString();
         session.setRefreshToken(refreshToken);
 
-        repository.save(session);
+        repository.save(session); 
 
         final String accessToken = accessTokenService.generateToken(userDetails);
 

@@ -25,7 +25,7 @@ public class CalculationServiceImpl implements CalculationService {
         return new PFC(prots / 4, fats / 9, carbs / 4);
     }
 
-    public double perfectBodyMass(User user) {
+    private double perfectBodyMass(User user) {
         int height = user.getHeight();
         int chest = user.getChest();
 
@@ -44,7 +44,7 @@ public class CalculationServiceImpl implements CalculationService {
         return (x1 + x2 + x3) / 3.0;
     }
 
-    public double basalMetabolicRate(User user, boolean isPerfect) {
+    private double basalMetabolicRate(User user, boolean isPerfect) {
         int weight = user.getWeight();
 
         if (!isPerfect)
@@ -67,7 +67,7 @@ public class CalculationServiceImpl implements CalculationService {
         return (duration + basalMetabolicRate(user,false)) / 24;
     }
 
-    public double thermogenesisEnergyNeed(User user) {
+    private double thermogenesisEnergyNeed(User user) {
         return basalMetabolicRate(user, false) / 10;
     }
 

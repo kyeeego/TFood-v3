@@ -32,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
                     )
             );
         } catch (AuthenticationException e) {
-            log.error("Authentiction failed for email: " + email);
+            log.error("Authentication failed for email: " + email);
             throw new BadCredentialsException("Bad credentials");
         }
         final UserDetails userDetails = myUserDetailsService
