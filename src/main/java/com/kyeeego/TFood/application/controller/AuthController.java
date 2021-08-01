@@ -36,7 +36,7 @@ public class AuthController {
     }
 
     // TODO: google how to improve logout
-    @ApiOperation("Стереть сессию данного устройства")
+    @ApiOperation("(SECURED) Стереть сессию данного устройства")
     @PostMapping("/logout")
     public void logout(@RequestBody @Valid LogoutDto body) {
         authService.logout(body.getFingerprint());

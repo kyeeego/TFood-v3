@@ -30,11 +30,11 @@ public class UserController {
 //                .collect(Collectors.toList());
 //    }
 
-    @ApiOperation("Найти пользователя по ID")
-    @GetMapping("/{id}")
-    public UserResponse findById(@PathVariable("id") String id) {
-        return new UserResponse(userService.findById(id));
-    }
+//    @ApiOperation("Найти пользователя по ID")
+//    @GetMapping("/{id}")
+//    public UserResponse findById(@PathVariable("id") String id) {
+//        return new UserResponse(userService.findById(id));
+//    }
 
     @ApiOperation("Зарегистрировать пользователя")
     @PostMapping
@@ -44,7 +44,7 @@ public class UserController {
         return new UserResponse(u);
     }
 
-    @ApiOperation("Обновить любые параметры пользователя (из возможных). Не требуемые значения оставлять null")
+    @ApiOperation("(SECURED) Обновить любые параметры пользователя (из возможных). Не требуемые значения оставлять null")
     @PostMapping("/update")
     public UserUpdateResponse update(@RequestBody UserUpdateDto userUpdateDto, Principal principal) {
         return userService.update(principal, userUpdateDto);

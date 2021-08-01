@@ -24,20 +24,20 @@ public class DayController {
 
     private final DayService dayService;
 
-    @ApiOperation("Получить (или создать) запись сегодняшнего дня")
+    @ApiOperation("(SECURED) Получить (или создать) запись сегодняшнего дня")
     @GetMapping("/today")
     public Day today(Principal principal) {
         return dayService.today(principal);
     }
 
-    @ApiOperation("Поставить оценку дню")
+    @ApiOperation("(SECURED) Поставить оценку дню")
     @GetMapping("/rate")
     public void rate(Principal principal,
                      @RequestParam("v") @Min(0) @Max(5) float v) {
         dayService.rate(v, principal);
     }
 
-    @ApiOperation("Получить все дни с ближайшего понедельника, в которые пользователь был активен")
+    @ApiOperation("(SECURED) Получить все дни с ближайшего понедельника, в которые пользователь был активен")
     @GetMapping("/week")
     public List<Day> pastWeek(Principal principal) {
         return dayService.pastWeek(principal);

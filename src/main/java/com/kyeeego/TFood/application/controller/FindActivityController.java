@@ -17,7 +17,7 @@ public class FindActivityController {
 
     private final ActivityFindService activityService;
 
-    @ApiOperation("Поиск по активностям с запросом и типом (Спорт или Труд по дому)")
+    @ApiOperation("(SECURED) Поиск по активностям с запросом и типом (Спорт или Труд по дому)")
     @GetMapping
     public List<Activity> findAllActivities(@RequestParam("type") ActivityType type, @RequestParam("q") String q) {
         return activityService.findAllActivitiesWithQuery(type, q);
@@ -27,7 +27,7 @@ public class FindActivityController {
 //    public Activity findActivityById(@PathVariable("id") String id) {
 //        return activityService.findActivityById(id);
 //    }
-    @ApiOperation("Поиск по продуктам с запросом")
+    @ApiOperation("(SECURED) Поиск по продуктам с запросом")
     @GetMapping("/products")
     public List<Product> findProductsByQuery(@RequestParam("q") String q) {
         return activityService.findProductsByQuery(q);
