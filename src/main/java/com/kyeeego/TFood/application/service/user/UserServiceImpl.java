@@ -1,13 +1,16 @@
 package com.kyeeego.TFood.application.service.user;
 
 import com.kyeeego.TFood.application.port.CalculationService;
+import com.kyeeego.TFood.application.port.DayService;
 import com.kyeeego.TFood.application.port.UserService;
 import com.kyeeego.TFood.application.repository.UserRepository;
 import com.kyeeego.TFood.domain.dto.user.UserCreateDto;
 import com.kyeeego.TFood.domain.dto.user.UserResponse;
 import com.kyeeego.TFood.domain.dto.user.UserUpdateDto;
 import com.kyeeego.TFood.domain.dto.user.UserUpdateResponse;
+import com.kyeeego.TFood.domain.models.Day;
 import com.kyeeego.TFood.domain.models.User;
+import com.kyeeego.TFood.domain.types.PFC;
 import com.kyeeego.TFood.domain.types.WeightResult;
 import com.kyeeego.TFood.exception.AlreadyExistsException;
 import com.kyeeego.TFood.exception.BadRequestException;
@@ -29,6 +32,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final CalculationService calculationService;
+    private final DayService dayService;
 
     @Override
     public List<User> findAll() {
@@ -75,6 +79,20 @@ public class UserServiceImpl implements UserService {
         bub.copyProperties(user, userUpdateDto);
 
         userRepository.save(user);
+
+        Day day = dayService.today(principal);
+
+        double DEN = calculationService.dailyEnergyNeed(user, day.getSleepTime());
+        double waterNeed = calculationService.waterNeed(user, DEN);
+        PFC pfcNeed = calculationService.dailyMacronutrientsNeed(DEN);
+
+        day.setKcalNeed((float) DEN);
+        day.setWaterNeed((int) waterNeed);
+        day.setCarbsNeed((float) pfcNeed.getCarbs());
+        day.setFatsNeed((float) pfcNeed.getFats());
+        day.setProtsNeed((float) pfcNeed.getProts());
+
+        dayService.update(day);
 
         WeightResult weightResult = calculationService.weightHeightRelation(user.getWeight(), user.getHeight(), user.isGender());
 

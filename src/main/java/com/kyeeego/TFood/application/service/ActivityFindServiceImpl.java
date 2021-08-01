@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,7 @@ public class ActivityFindServiceImpl implements ActivityFindService {
 
     @Override
     public List<Activity> findAllActivitiesWithQuery(ActivityType type, String q) {
+        q = q.toLowerCase(Locale.ROOT);
         return activityRepository.findByTypeAndNameLike(type, q);
     }
 
@@ -32,6 +34,7 @@ public class ActivityFindServiceImpl implements ActivityFindService {
 
     @Override
     public List<Product> findProductsByQuery(String q) {
+        q = q.toLowerCase(Locale.ROOT);
         return productRepository.findProductsByNameIsContainingOrCategoryIsContaining(q, q);
     }
 
