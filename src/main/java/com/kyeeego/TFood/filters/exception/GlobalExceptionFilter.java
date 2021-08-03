@@ -62,11 +62,11 @@ public class GlobalExceptionFilter {
 
 
     private <E extends ApiException> ErrorResponse defaultExceptionHandler(E ex) {
-        return new ErrorResponse(ex.getStatus(), ex.getMessage());
+        return new ErrorResponse(ex.getStatus().value(), ex.getMessage());
     }
 
     private <E extends RuntimeException> ErrorResponse runtimeExceptionHandler(E ex, HttpStatus status) {
-        return new ErrorResponse(status, ex.getMessage());
+        return new ErrorResponse(status.value(), ex.getMessage());
     }
 
 }
