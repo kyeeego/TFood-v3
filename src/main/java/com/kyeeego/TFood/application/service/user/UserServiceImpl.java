@@ -49,10 +49,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(UserCreateDto userInput) {
         User user = new User(userInput);
-        UserValidator userValidator = new UserValidator(user);
-
-        if (!userValidator.validateCreate())
-            throw new BadRequestException("Couldn't validate user");
 
         if (userRepository
                 .findByEmail(user.getEmail())
