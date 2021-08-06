@@ -11,6 +11,7 @@ import com.kyeeego.TFood.domain.models.Activity;
 import com.kyeeego.TFood.domain.models.Day;
 import com.kyeeego.TFood.domain.models.Product;
 import com.kyeeego.TFood.domain.models.User;
+import com.kyeeego.TFood.domain.types.Eating;
 import com.kyeeego.TFood.domain.types.PFC;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -88,5 +89,23 @@ public class ActivityServiceImpl implements ActivityService {
         dayService.update(today);
 
         return today;
+    }
+
+    @Override
+    public void deleteProduct(Principal principal, Eating eating, int id) {
+        Day today = dayService.today(principal);
+
+        today.removeProduct(eating, id);
+
+        dayService.update(today);
+    }
+
+    @Override
+    public void deleteActivity(Principal principal, int id) {
+        Day today = dayService.today(principal);
+
+        today.removeActivity(id);
+
+        dayService.update(today);
     }
 }

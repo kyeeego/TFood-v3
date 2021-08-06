@@ -1,9 +1,6 @@
 package com.kyeeego.TFood.domain.models;
 
-import com.kyeeego.TFood.domain.types.Eating;
-import com.kyeeego.TFood.domain.types.Minerals;
-import com.kyeeego.TFood.domain.types.StoredActivity;
-import com.kyeeego.TFood.domain.types.Vitamins;
+import com.kyeeego.TFood.domain.types.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.catalina.Store;
@@ -45,10 +42,10 @@ public class Day {
     private String user;
     private LocalDate date;
 
-    private List<Product> breakfast = new ArrayList<>();
-    private List<Product> lunch = new ArrayList<>();
-    private List<Product> dinner = new ArrayList<>();
-    private List<Product> snack = new ArrayList<>();
+    private List<StoredProduct> breakfast = new ArrayList<>();
+    private List<StoredProduct> lunch = new ArrayList<>();
+    private List<StoredProduct> dinner = new ArrayList<>();
+    private List<StoredProduct> snack = new ArrayList<>();
 
     private List<StoredActivity> activity = new ArrayList<>();
 
@@ -65,28 +62,116 @@ public class Day {
         storedActivity.setActivity(activity);
         storedActivity.setDuration(duration);
         storedActivity.setKcal(kcal);
+        storedActivity.setId(
+                this.activity.size() != 0
+                        ? this.activity.get(this.activity.size() - 1).getId() + 1
+                        : 1
+        );
 
         this.activity.add(storedActivity);
     }
 
     public void addEating(Eating eating, Product product, float k) {
-        product.setProts( product.getProts() * k );
-        product.setFats( product.getFats() * k );
-        product.setCarbs( product.getCarbs() * k );
-        product.setKcal( product.getKcal() * k );
+        product.setProts(product.getProts() * k);
+        product.setFats(product.getFats() * k);
+        product.setCarbs(product.getCarbs() * k);
+        product.setKcal(product.getKcal() * k);
 
         kcal += product.getKcal();
 
+        StoredProduct storedProduct = new StoredProduct();
+        storedProduct.setProduct(product);
+
         switch (eating) {
             case BREAKFAST:
-                breakfast.add(product); break;
+                storedProduct.setId(
+                        breakfast.size() != 0
+                                ? breakfast.get(breakfast.size() - 1).getId() + 1
+                                : 1
+                );
+                breakfast.add(storedProduct);
+                break;
             case SNACK:
-                snack.add(product); break;
+                storedProduct.setId(
+                        snack.size() != 0
+                                ? snack.get(snack.size() - 1).getId() + 1
+                                : 1
+                );
+                snack.add(storedProduct);
+                break;
             case LUNCH:
-                lunch.add(product); break;
+                storedProduct.setId(
+                        lunch.size() != 0
+                                ? lunch.get(lunch.size() - 1).getId() + 1
+                                : 1
+                );
+                lunch.add(storedProduct);
+                break;
             case DINNER:
-                dinner.add(product); break;
+                storedProduct.setId(
+                        dinner.size() != 0
+                                ? dinner.get(dinner.size() - 1).getId() + 1
+                                : 1
+                );
+                dinner.add(storedProduct);
+                break;
         }
+    }
+
+    public void removeProduct(Eating eating, int id) {
+        switch (eating) {
+            case BREAKFAST:
+                breakfast.removeIf((a) -> {
+                    if (a.getId() == id) {
+                        kcal -= a.getProduct().getKcal();
+                        return true;
+                    }
+
+                    return false;
+                });
+                break;
+            case SNACK:
+                snack.removeIf((a) -> {
+                    if (a.getId() == id) {
+                        kcal -= a.getProduct().getKcal();
+                        return true;
+                    }
+
+                    return false;
+                });
+                break;
+            case LUNCH:
+                lunch.removeIf((a) -> {
+                    if (a.getId() == id) {
+                        kcal -= a.getProduct().getKcal();
+                        return true;
+                    }
+
+                    return false;
+                });
+                break;
+            case DINNER:
+                dinner.removeIf((a) -> {
+                    if (a.getId() == id) {
+                        kcal -= a.getProduct().getKcal();
+                        return true;
+                    }
+
+                    return false;
+                });
+                break;
+        }
+    }
+
+    public void removeActivity(int id) {
+        activity.removeIf((a) -> {
+            if (a.getId() == id) {
+                kcal -= a.getKcal();
+                return true;
+            }
+
+            return false;
+        });
     }
 
 }

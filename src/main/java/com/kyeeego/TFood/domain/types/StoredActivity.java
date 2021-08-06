@@ -8,4 +8,6 @@ public class StoredActivity {
     private Activity activity;
     private int duration;
     private double kcal;
+
+    private int id;
 }
