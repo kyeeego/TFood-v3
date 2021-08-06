@@ -50,8 +50,8 @@ public class ActivityController {
 
     @ApiOperation("(SECURED) Удалить продукт")
     @DeleteMapping("/eating")
-    public void deleteProduct(Principal principal, @RequestParam("id") int id, @RequestParam("eating") Eating eating) {
-        activityService.deleteProduct(principal, eating, id);
+    public void deleteProduct(Principal principal, @RequestParam("id") int id) {
+        activityService.deleteProduct(principal, id);
     }
 
 }

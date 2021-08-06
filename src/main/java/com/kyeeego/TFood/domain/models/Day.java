@@ -42,10 +42,7 @@ public class Day {
     private String user;
     private LocalDate date;
 
-    private List<StoredProduct> breakfast = new ArrayList<>();
-    private List<StoredProduct> lunch = new ArrayList<>();
-    private List<StoredProduct> dinner = new ArrayList<>();
-    private List<StoredProduct> snack = new ArrayList<>();
+    private List<StoredProduct> eating = new ArrayList<>();
 
     private List<StoredActivity> activity = new ArrayList<>();
 
@@ -80,87 +77,26 @@ public class Day {
         kcal += product.getKcal();
 
         StoredProduct storedProduct = new StoredProduct();
+        storedProduct.setEating(eating);
         storedProduct.setProduct(product);
+        storedProduct.setId(
+                this.eating.size() != 0
+                ? this.eating.get(this.eating.size() - 1).getId() + 1
+                : 1
+        );
 
-        switch (eating) {
-            case BREAKFAST:
-                storedProduct.setId(
-                        breakfast.size() != 0
-                                ? breakfast.get(breakfast.size() - 1).getId() + 1
-                                : 1
-                );
-                breakfast.add(storedProduct);
-                break;
-            case SNACK:
-                storedProduct.setId(
-                        snack.size() != 0
-                                ? snack.get(snack.size() - 1).getId() + 1
-                                : 1
-                );
-                snack.add(storedProduct);
-                break;
-            case LUNCH:
-                storedProduct.setId(
-                        lunch.size() != 0
-                                ? lunch.get(lunch.size() - 1).getId() + 1
-                                : 1
-                );
-                lunch.add(storedProduct);
-                break;
-            case DINNER:
-                storedProduct.setId(
-                        dinner.size() != 0
-                                ? dinner.get(dinner.size() - 1).getId() + 1
-                                : 1
-                );
-                dinner.add(storedProduct);
-                break;
-        }
+        this.eating.add(storedProduct);
     }
 
-    public void removeProduct(Eating eating, int id) {
-        switch (eating) {
-            case BREAKFAST:
-                breakfast.removeIf((a) -> {
-                    if (a.getId() == id) {
-                        kcal -= a.getProduct().getKcal();
-                        return true;
-                    }
+    public void removeProduct(int id) {
+        this.eating.removeIf((a) -> {
+            if (a.getId() == id) {
+                kcal -= a.getProduct().getKcal();
+                return true;
+            }
 
-                    return false;
-                });
-                break;
-            case SNACK:
-                snack.removeIf((a) -> {
-                    if (a.getId() == id) {
-                        kcal -= a.getProduct().getKcal();
-                        return true;
-                    }
-
-                    return false;
-                });
-                break;
-            case LUNCH:
-                lunch.removeIf((a) -> {
-                    if (a.getId() == id) {
-                        kcal -= a.getProduct().getKcal();
-                        return true;
-                    }
-
-                    return false;
-                });
-                break;
-            case DINNER:
-                dinner.removeIf((a) -> {
-                    if (a.getId() == id) {
-                        kcal -= a.getProduct().getKcal();
-                        return true;
-                    }
-
-                    return false;
-                });
-                break;
-        }
+            return false;
+        });
     }
 
     public void removeActivity(int id) {

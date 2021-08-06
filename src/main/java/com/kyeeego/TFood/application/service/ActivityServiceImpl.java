@@ -92,10 +92,10 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public void deleteProduct(Principal principal, Eating eating, int id) {
+    public void deleteProduct(Principal principal, int id) {
         Day today = dayService.today(principal);
 
-        today.removeProduct(eating, id);
+        today.removeProduct(id);
 
         dayService.update(today);
     }

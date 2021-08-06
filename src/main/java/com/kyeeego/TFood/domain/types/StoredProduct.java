@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class StoredProduct {
     private Product product;
-
+    private Eating eating;
     private int id;
 }
