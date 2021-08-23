@@ -47,23 +47,23 @@ public final class DayServiceImpl implements DayService {
         dayRepository.save(day);
     }
 
-//    @Override
-//    public List<Day> pastWeek(Principal principal) {
-//        LocalDate monday = LocalDate.now(clock).with(TemporalAdjusters.previous(DayOfWeek.MONDAY));
-//        List<Day> wholeDayHistory = dayRepository.findByUser(principal.getName());
-//
-//        return wholeDayHistory.stream()
-//                .filter((day) -> monday.equals(day.getDate()) || monday.isBefore(day.getDate()))
-//                .collect(Collectors.toList());
-//    }
+    @Override
+    public List<Day> pastWeek(Principal principal) {
+        LocalDate monday = LocalDate.now(clock).with(TemporalAdjusters.previous(DayOfWeek.MONDAY));
+        List<Day> wholeDayHistory = dayRepository.findByUser(principal.getName());
+
+        return wholeDayHistory.stream()
+                .filter((day) -> monday.equals(day.getDate()) || monday.isBefore(day.getDate()))
+                .collect(Collectors.toList());
+    }
 
 
     // FIXME
-    @Override
-    public List<Day> pastWeek(Principal principal) {
-        LocalDate sunday = LocalDate.now(clock).with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
-        return dayRepository.findByUserAndDateAfter(principal.getName(), sunday);
-    }
+//    @Override
+//    public List<Day> pastWeek(Principal principal) {
+//        LocalDate sunday = LocalDate.now(clock).with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
+//        return dayRepository.findByUserAndDateAfter(principal.getName(), sunday);
+//    }
 
     @Override
     public void update(Day day) {
